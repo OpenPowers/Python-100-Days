@@ -1,0 +1,4210 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Python - 100天从新手到大师">
+      
+      
+        <meta name="author" content="OpenPowers">
+      
+      
+        <link rel="canonical" href="https://github.com/OpenPowers/Day46-60/54.RESTful%E6%9E%B6%E6%9E%84%E5%92%8CDRF%E5%85%A5%E9%97%A8/">
+      
+      
+        <link rel="prev" href="../53.%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/">
+      
+      
+        <link rel="next" href="../55.RESTful%E6%9E%B6%E6%9E%84%E5%92%8CDRF%E8%BF%9B%E9%98%B6/">
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
+    
+    
+      
+        <title>54.RESTful架构和DRF入门 - Python-100-Days</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,700,700i%7CUbuntu+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Ubuntu";--md-code-font:"Ubuntu Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Blue-Grey" data-md-color-accent="Pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#restfuldrf" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="https://docs.python.org/zh-cn/3/" title="Python-100-Days" class="md-header__button md-logo" aria-label="Python-100-Days" data-md-component="logo">
+      
+  <img src="../../assets/python-logo@2x.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Python-100-Days
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              54.RESTful架构和DRF入门
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="Blue-Grey" data-md-color-accent="Pink"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OpenPowers/Python-100-Days" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenPowers/Python-100-Days
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://docs.python.org/zh-cn/3/" title="Python-100-Days" class="md-nav__button md-logo" aria-label="Python-100-Days" data-md-component="logo">
+      
+  <img src="../../assets/python-logo@2x.png" alt="logo">
+
+    </a>
+    Python-100-Days
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OpenPowers/Python-100-Days" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenPowers/Python-100-Days
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    README
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            README
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day01-15
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Day01-15
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/01.%E5%88%9D%E8%AF%86Python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01.初识Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/02.%E8%AF%AD%E8%A8%80%E5%85%83%E7%B4%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02.语言元素
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/03.%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03.分支结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/04.%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04.循环结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/05.%E6%9E%84%E9%80%A0%E7%A8%8B%E5%BA%8F%E9%80%BB%E8%BE%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05.构造程序逻辑
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/06.%E5%87%BD%E6%95%B0%E5%92%8C%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06.函数和模块的使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/07.%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07.字符串和常用数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/08.%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08.面向对象编程基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/09.%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09.面向对象进阶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/10.%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E5%92%8C%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10.图形用户界面和游戏开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/11.%E6%96%87%E4%BB%B6%E5%92%8C%E5%BC%82%E5%B8%B8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11.文件和异常
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/12.%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12.字符串和正则表达式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/13.%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13.进程和线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/14.%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14.网络编程入门和网络应用开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/15.%E5%9B%BE%E5%83%8F%E5%92%8C%E5%8A%9E%E5%85%AC%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15.图像和办公文档处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day16-20
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Day16-20
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day16-20/16-20.Python%E8%AF%AD%E8%A8%80%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-20.Python语言进阶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day21-30
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Day21-30
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day21-30/21-30.Web%E5%89%8D%E7%AB%AF%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-30.Web前端概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day31-35
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Day31-35
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day31-35/31-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31-35.玩转Linux操作系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day36-45
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Day36-45
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/36.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8CMySQL%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36.关系型数据库和MySQL概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/37.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDDL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37.SQL详解之DDL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/38.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDML/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    38.SQL详解之DML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/39.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDQL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39.SQL详解之DQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/40.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDCL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40.SQL详解之DCL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/41.MySQL%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    41.MySQL新特性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/42.%E8%A7%86%E5%9B%BE%E3%80%81%E5%87%BD%E6%95%B0%E5%92%8C%E8%BF%87%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    42.视图、函数和过程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/43.%E7%B4%A2%E5%BC%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    43.索引
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/44.Python%E6%8E%A5%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    44.Python接入MySQL数据库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/45.%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E5%92%8CHiveSQL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    45.大数据平台和HiveSQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day46-60
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Day46-60
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../46.Django%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    46.Django快速上手
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../47.%E6%B7%B1%E5%85%A5%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    47.深入模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../48.%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%92%8CAjax%E8%AF%B7%E6%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    48.静态资源和Ajax请求
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../49.Cookie%E5%92%8CSession/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    49.Cookie和Session
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50.%E5%88%B6%E4%BD%9C%E6%8A%A5%E8%A1%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50.制作报表
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../51.%E6%97%A5%E5%BF%97%E5%92%8C%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E6%A0%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    51.日志和调试工具栏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../52.%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    52.中间件的应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../53.%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    53.前后端分离开发入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    54.RESTful架构和DRF入门
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    54.RESTful架构和DRF入门
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#restfuldrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      RESTful架构和DRF入门
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RESTful架构和DRF入门">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      REST概述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drf" class="md-nav__link">
+    <span class="md-ellipsis">
+      DRF使用入门
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DRF使用入门">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#drf_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装和配置DRF
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      编写序列化器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      编写视图函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现老师信息数据接口
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      前后端分离下的用户登录
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="前后端分离下的用户登录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      JWT概述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jwt_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      JWT的优缺点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyjwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用PyJWT
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../55.RESTful%E6%9E%B6%E6%9E%84%E5%92%8CDRF%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    55.RESTful架构和DRF进阶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../56.%E4%BD%BF%E7%94%A8%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    56.使用缓存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../57.%E6%8E%A5%E5%85%A5%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    57.接入三方平台
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../58.%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E5%92%8C%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    58.异步任务和定时任务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../59.%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    59.单元测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../60.%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    60.项目上线
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day61-65
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Day61-65
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/61.%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    61.网络数据采集概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/62.%E7%94%A8Python%E8%8E%B7%E5%8F%96%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    62.用Python获取网络资源-1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/62.%E7%94%A8Python%E8%A7%A3%E6%9E%90HTML%E9%A1%B5%E9%9D%A2-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    62.用Python解析HTML页面-2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/63.Python%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    63.Python中的并发编程-1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/63.Python%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    63.Python中的并发编程-2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/63.Python%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    63.Python中的并发编程-3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/63.%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9C%A8%E7%88%AC%E8%99%AB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    63.并发编程在爬虫中的应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/64.%E4%BD%BF%E7%94%A8Selenium%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E5%8A%A8%E6%80%81%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    64.使用Selenium抓取网页动态内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/65.%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    65.爬虫框架Scrapy简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day66-80
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Day66-80
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/66.%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    66.数据分析概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/67.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    67.环境准备
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/68.NumPy%E7%9A%84%E5%BA%94%E7%94%A8-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    68.NumPy的应用-1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/69.NumPy%E7%9A%84%E5%BA%94%E7%94%A8-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    69.NumPy的应用-2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/70.NumPy%E7%9A%84%E5%BA%94%E7%94%A8-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    70.NumPy的应用-3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/71.NumPy%E7%9A%84%E5%BA%94%E7%94%A8-4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    71.NumPy的应用-4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/72.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    72.深入浅出pandas-1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/73.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    73.深入浅出pandas-2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/74.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    74.深入浅出pandas-3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/75.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    75.深入浅出pandas-4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/76.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    76.深入浅出pandas-5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/77.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    77.深入浅出pandas-6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/78.%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    78.数据可视化-1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/79.%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    79.数据可视化-2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day66-80/80.%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    80.数据可视化-3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day81-90
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Day81-90
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/81.%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    81.人工智能和机器学习概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/82.k%E6%9C%80%E8%BF%91%E9%82%BB%E5%88%86%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    82.k最近邻分类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/83.%E5%86%B3%E7%AD%96%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    83.决策树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/83.%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%98-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    83.推荐系统实战-1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/84.%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    84.贝叶斯分类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/85.%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    85.支持向量机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/86.K-%E5%9D%87%E5%80%BC%E8%81%9A%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    86.K-均值聚类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/87.%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    87.回归分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/88.%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    88.深度学习入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/89.PyTorch%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    89.PyTorch概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/90.PyTorch%E5%AE%9E%E6%88%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    90.PyTorch实战
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day91-100
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Day91-100
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/91.%E5%9B%A2%E9%98%9F%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    91.团队项目开发的问题和解决方案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/92.Docker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    92.Docker容器技术详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/93.MySQL%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    93.MySQL性能优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/94.%E7%BD%91%E7%BB%9CAPI%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    94.网络API接口设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/95.%E4%BD%BF%E7%94%A8Django%E5%BC%80%E5%8F%91%E5%95%86%E4%B8%9A%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    95.使用Django开发商业项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/96.%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    96.软件测试和自动化测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/97.%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    97.电商网站技术要点剖析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/98.%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E5%92%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    98.项目部署上线和性能调优
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/99.%E9%9D%A2%E8%AF%95%E4%B8%AD%E7%9A%84%E5%85%AC%E5%85%B1%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    99.面试中的公共问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/100.Python%E9%9D%A2%E8%AF%95%E9%A2%98%E5%AE%9E%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    100.Python面试题实录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    番外篇
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            番外篇
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/PEP8%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PEP8风格指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/Python%E4%B9%8B%E7%A6%85%E7%9A%84%E6%9C%80%E4%BD%B3%E7%BF%BB%E8%AF%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python之禅的最佳翻译
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/Python%E5%8F%82%E8%80%83%E4%B9%A6%E7%B1%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python参考书籍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/Python%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python容器使用小技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python数据分析师面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/Python%E7%BC%96%E7%A8%8B%E6%83%AF%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python编程惯例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E4%B8%80%E4%B8%AA%E5%B0%8F%E4%BE%8B%E5%AD%90%E5%8A%A9%E4%BD%A0%E5%BD%BB%E5%BA%95%E7%90%86%E8%A7%A3%E5%8D%8F%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一个小例子助你彻底理解协程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Hexo搭建自己的博客
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E5%B8%B8%E8%A7%81%E5%8F%8D%E7%88%AC%E7%AD%96%E7%95%A5%E5%8F%8A%E5%BA%94%E5%AF%B9%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常见反爬策略及应对方案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9%E4%BA%86Python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    我为什么选择了Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3%E5%8F%82%E8%80%83%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    接口文档参考示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E7%8E%A9%E8%BD%ACPyCharm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    玩转PyCharm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E7%94%A8%E5%87%BD%E6%95%B0%E8%BF%98%E6%98%AF%E7%94%A8%E5%A4%8D%E6%9D%82%E7%9A%84%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    用函数还是用复杂的表达式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E7%9F%A5%E4%B9%8E%E9%97%AE%E9%A2%98%E5%9B%9E%E7%AD%94/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    知乎问题回答
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E8%8B%B1%E8%AF%AD%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    英语面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E9%82%A3%E4%BA%9B%E5%B9%B4%E6%88%91%E4%BB%AC%E8%B8%A9%E8%BF%87%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    那些年我们踩过的那些坑
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#restfuldrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      RESTful架构和DRF入门
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RESTful架构和DRF入门">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      REST概述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drf" class="md-nav__link">
+    <span class="md-ellipsis">
+      DRF使用入门
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DRF使用入门">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#drf_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装和配置DRF
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      编写序列化器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      编写视图函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现老师信息数据接口
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      前后端分离下的用户登录
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="前后端分离下的用户登录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      JWT概述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jwt_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      JWT的优缺点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyjwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用PyJWT
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>54.RESTful架构和DRF入门</h1>
+
+<h2 id="restfuldrf">RESTful架构和DRF入门<a class="headerlink" href="#restfuldrf" title="Permanent link">&para;</a></h2>
+<p>把软件（Software）、平台（Platform）、基础设施（Infrastructure）做成服务（Service）是很多IT企业都一直在做的事情，这就是大家经常听到的SasS（软件即服务）、PasS（平台即服务）和IasS（基础设置即服务）。实现面向服务的架构（SOA）有诸多的方式，包括RPC（远程过程调用）、Web Service、REST等，在技术层面上，SOA是一种<strong>抽象的、松散耦合的粗粒度软件架构</strong>；在业务层面上，SOA的核心概念是“<strong>重用</strong>”和“<strong>互操作</strong>”，它将系统资源整合成可操作的、标准的服务，使得这些资源能够被重新组合和应用。在实现SOA的诸多方案中，REST被认为是最适合互联网应用的架构，符合REST规范的架构也经常被称作RESTful架构。</p>
+<h3 id="rest">REST概述<a class="headerlink" href="#rest" title="Permanent link">&para;</a></h3>
+<p>REST这个词，是<strong>Roy Thomas Fielding</strong>在他2000年的博士论文中提出的，Roy是HTTP协议（1.0和1.1版）的主要设计者、Apache服务器软件主要作者、Apache基金会第一任主席。在他的博士论文中，Roy把他对互联网软件的架构原则定名为REST，即<strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer的缩写，中文通常翻译为“<strong>表现层状态转移</strong>”或“<strong>表述状态转移</strong>”。</p>
+<p>这里的“表现层”其实指的是“资源”的“表现层”。所谓资源，就是网络上的一个实体，或者说是网络上的一个具体信息。它可以是一段文本、一张图片、一首歌曲或一种服务。我们可以用一个URI（统一资源定位符）指向资源，要获取到这个资源，访问它的URI即可，URI就是资源在互联网上的唯一标识。资源可以有多种外在表现形式。我们把资源具体呈现出来的形式，叫做它的“表现层”。比如，文本可以用<code>text/plain</code>格式表现，也可以用<code>text/html</code>格式、<code>text/xml</code>格式、<code>application/json</code>格式表现，甚至可以采用二进制格式；图片可以用<code>image/jpeg</code>格式表现，也可以用<code>image/png</code>格式表现。URI只代表资源的实体，不代表它的表现形式。严格地说，有些网址最后的<code>.html</code>后缀名是不必要的，因为这个后缀名表示格式，属于“表现层”范畴，而URI应该只代表“资源”的位置，它的具体表现形式，应该在HTTP请求的头信息中用<code>Accept</code>和<code>Content-Type</code>字段指定，这两个字段才是对“表现层”的描述。</p>
+<p>访问一个网站，就代表了客户端和服务器的一个互动过程。在这个过程中，势必涉及到数据和状态的变化。Web应用通常使用HTTP作为其通信协议，客户端想要操作服务器，必须通过HTTP请求，让服务器端发生“状态转移”，而这种转移是建立在表现层之上的，所以就是“表现层状态转移”。客户端通过HTTP的动词GET、POST、PUT（或PATCH）、DELETE，分别对应对资源的四种基本操作，其中GET用来获取资源，POST用来新建资源（也可以用于更新资源），PUT（或PATCH）用来更新资源，DELETE用来删除资源。</p>
+<p>简单的说RESTful架构就是：“每一个URI代表一种资源，客户端通过四个HTTP动词，对服务器端资源进行操作，实现资源的表现层状态转移”。</p>
+<p>我们在设计Web应用时，如果需要向客户端提供资源，就可以使用REST风格的URI，这是实现RESTful架构的第一步。当然，真正的RESTful架构并不只是URI符合REST风格，更为重要的是“无状态”和“幂等性”两个词，我们在后面的课程中会为大家阐述这两点。下面的例子给出了一些符合REST风格的URI，供大家在设计URI时参考。</p>
+<table>
+<thead>
+<tr>
+<th>请求方法（HTTP动词）</th>
+<th>URI</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GET</strong></td>
+<td><code>/students/</code></td>
+<td>获取所有学生</td>
+</tr>
+<tr>
+<td><strong>POST</strong></td>
+<td><code>/students/</code></td>
+<td>新建一个学生</td>
+</tr>
+<tr>
+<td><strong>GET</strong></td>
+<td><code>/students/ID/</code></td>
+<td>获取指定ID的学生信息</td>
+</tr>
+<tr>
+<td><strong>PUT</strong></td>
+<td><code>/students/ID/</code></td>
+<td>更新指定ID的学生信息（提供该学生的全部信息）</td>
+</tr>
+<tr>
+<td><strong>PATCH</strong></td>
+<td><code>/students/ID/</code></td>
+<td>更新指定ID的学生信息（提供该学生的部分信息）</td>
+</tr>
+<tr>
+<td><strong>DELETE</strong></td>
+<td><code>/students/ID/</code></td>
+<td>删除指定ID的学生信息</td>
+</tr>
+<tr>
+<td><strong>GET</strong></td>
+<td><code>/students/ID/friends/</code></td>
+<td>列出指定ID的学生的所有朋友</td>
+</tr>
+<tr>
+<td><strong>DELETE</strong></td>
+<td><code>/students/ID/friends/ID/</code></td>
+<td>删除指定ID的学生的指定ID的朋友</td>
+</tr>
+</tbody>
+</table>
+<h3 id="drf">DRF使用入门<a class="headerlink" href="#drf" title="Permanent link">&para;</a></h3>
+<p>在Django项目中，如果要实现REST架构，即将网站的资源发布成REST风格的API接口，可以使用著名的三方库<code>djangorestframework</code> ，我们通常将其简称为DRF。</p>
+<h4 id="drf_1">安装和配置DRF<a class="headerlink" href="#drf_1" title="Permanent link">&para;</a></h4>
+<p>安装DRF。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Bash</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>pip install djangorestframework
+</code></pre></div></td></tr></table></div>
+<p>配置DRF。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-1"> 1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-2"> 2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-3"> 3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-4"> 4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-5"> 5</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-6"> 6</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-7"> 7</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-8"> 8</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-9"> 9</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-10">10</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-11">11</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-12">12</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-13">13</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-14">14</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-15">15</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-16">16</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-17">17</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-18">18</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-19">19</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-20">20</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-21">21</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-22">22</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-23">23</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-24">24</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-25">25</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-26">26</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-27">27</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-28">28</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-29">29</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-30">30</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-31">31</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-32">32</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-33">33</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span style="color: #000000">INSTALLED_APPS</span> <span style="color: #000000">=</span> [
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>    <span style="color: #C41A16">&#39;rest_framework&#39;</span>,
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>]
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span style="color: #177500"># 下面的配置根据项目需要进行设置</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span style="color: #000000">REST_FRAMEWORK</span> <span style="color: #000000">=</span> {
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>    <span style="color: #177500"># 配置默认页面大小</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>    <span style="color: #177500"># &#39;PAGE_SIZE&#39;: 10,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>    <span style="color: #177500"># 配置默认的分页类</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>    <span style="color: #177500"># &#39;DEFAULT_PAGINATION_CLASS&#39;: &#39;...&#39;,</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>    <span style="color: #177500"># 配置异常处理器</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a>    <span style="color: #177500"># &#39;EXCEPTION_HANDLER&#39;: &#39;...&#39;,</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>    <span style="color: #177500"># 配置默认解析器</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a>    <span style="color: #177500"># &#39;DEFAULT_PARSER_CLASSES&#39;: (</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a>    <span style="color: #177500">#     &#39;rest_framework.parsers.JSONParser&#39;,</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a>    <span style="color: #177500">#     &#39;rest_framework.parsers.FormParser&#39;,</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a>    <span style="color: #177500">#     &#39;rest_framework.parsers.MultiPartParser&#39;,</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a>    <span style="color: #177500"># ),</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a>    <span style="color: #177500"># 配置默认限流类</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a>    <span style="color: #177500"># &#39;DEFAULT_THROTTLE_CLASSES&#39;: (</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a>    <span style="color: #177500">#     &#39;...&#39;</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a>    <span style="color: #177500"># ),</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a>    <span style="color: #177500"># 配置默认授权类</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a>    <span style="color: #177500"># &#39;DEFAULT_PERMISSION_CLASSES&#39;: (</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a>    <span style="color: #177500">#     &#39;...&#39;,</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a>    <span style="color: #177500"># ),</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a>    <span style="color: #177500"># 配置默认认证类</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a>    <span style="color: #177500"># &#39;DEFAULT_AUTHENTICATION_CLASSES&#39;: (</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a>    <span style="color: #177500">#     &#39;...&#39;,</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a>    <span style="color: #177500"># ),</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a>}
+</code></pre></div></td></tr></table></div>
+<h4 id="_1">编写序列化器<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>前后端分离的开发需要后端为前端、移动端提供API数据接口，而API接口通常情况下都是返回JSON格式的数据，这就需要对模型对象进行序列化处理。DRF中封装了<code>Serializer</code>类和<code>ModelSerializer</code>类用于实现序列化操作，通过继承<code>Serializer</code>类或<code>ModelSerializer</code>类，我们可以自定义序列化器，用于将对象处理成字典，代码如下所示。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-2-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-2-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-2-3">3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-2-4">4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-2-5">5</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-2-6">6</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-2-7">7</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span style="color: #A90D91">from</span> <span style="color: #000000">rest_framework</span> <span style="color: #A90D91">import</span> <span style="color: #000000">serializers</span> 
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span style="color: #A90D91">class</span> <span style="color: #3F6E75">SubjectSerializer</span>(<span style="color: #000000">serializers.ModelSerializer</span>):
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>    <span style="color: #A90D91">class</span> <span style="color: #3F6E75">Meta</span>:
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>        <span style="color: #000000">model</span> <span style="color: #000000">=</span> <span style="color: #000000">Subject</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>        <span style="color: #000000">fields</span> <span style="color: #000000">=</span> <span style="color: #C41A16">&#39;__all__&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p>上面的代码直接继承了<code>ModelSerializer</code>，通过<code>Meta</code>类的<code>model</code>属性指定要序列化的模型以及<code>fields</code>属性指定需要序列化的模型字段，稍后我们就可以在视图函数中使用该类来实现对<code>Subject</code>模型的序列化。</p>
+<h4 id="_2">编写视图函数<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>DRF框架支持两种实现数据接口的方式，一种是FBV（基于函数的视图），另一种是CBV（基于类的视图）。我们先看看FBV的方式如何实现数据接口，代码如下所示。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-1"> 1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-2"> 2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-3"> 3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-4"> 4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-5"> 5</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-6"> 6</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-7"> 7</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-8"> 8</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-9"> 9</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-10">10</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-11">11</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span style="color: #A90D91">from</span> <span style="color: #000000">rest_framework.decorators</span> <span style="color: #A90D91">import</span> <span style="color: #000000">api_view</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span style="color: #A90D91">from</span> <span style="color: #000000">rest_framework.response</span> <span style="color: #A90D91">import</span> <span style="color: #000000">Response</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span style="color: #000000">@api_view</span>((<span style="color: #C41A16">&#39;GET&#39;</span>, ))
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span style="color: #A90D91">def</span> <span style="color: #000000">show_subjects</span>(<span style="color: #000000">request</span>: <span style="color: #000000">HttpRequest</span>) <span style="color: #000000">-&gt;</span> <span style="color: #000000">HttpResponse</span>:
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>    <span style="color: #000000">subjects</span> <span style="color: #000000">=</span> <span style="color: #000000">Subject.objects.all</span>()<span style="color: #000000">.order_by</span>(<span style="color: #C41A16">&#39;no&#39;</span>)
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>    <span style="color: #177500"># 创建序列化器对象并指定要序列化的模型</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>    <span style="color: #000000">serializer</span> <span style="color: #000000">=</span> <span style="color: #000000">SubjectSerializer</span>(<span style="color: #000000">subjects</span>, <span style="color: #000000">many=</span><span style="color: #A90D91">True</span>)
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>    <span style="color: #177500"># 通过序列化器的data属性获得模型对应的字典并通过创建Response对象返回JSON格式的数据</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>    <span style="color: #A90D91">return</span> <span style="color: #000000">Response</span>(<span style="color: #000000">serializer.data</span>)
+</code></pre></div></td></tr></table></div>
+<p>对比上一个章节的使用<code>bpmapper</code>实现模型序列化的代码，使用DRF的代码更加简单明了，而且DRF本身自带了一套页面，可以方便我们查看我们使用DRF定制的数据接口，如下图所示。</p>
+<p><img alt="" src="../res/drf-app.png" /></p>
+<p>直接使用上一节写好的页面，就可以通过Vue.js把上面接口提供的学科数据渲染并展示出来，此处不再进行赘述。</p>
+<h4 id="_3">实现老师信息数据接口<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>编写序列化器。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-1"> 1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-2"> 2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-3"> 3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-4"> 4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-5"> 5</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-6"> 6</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-7"> 7</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-8"> 8</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-9"> 9</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-10">10</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-11">11</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-12">12</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span style="color: #A90D91">class</span> <span style="color: #3F6E75">SubjectSimpleSerializer</span>(<span style="color: #000000">serializers.ModelSerializer</span>):
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>    <span style="color: #A90D91">class</span> <span style="color: #3F6E75">Meta</span>:
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>        <span style="color: #000000">model</span> <span style="color: #000000">=</span> <span style="color: #000000">Subject</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>        <span style="color: #000000">fields</span> <span style="color: #000000">=</span> (<span style="color: #C41A16">&#39;no&#39;</span>, <span style="color: #C41A16">&#39;name&#39;</span>)
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span style="color: #A90D91">class</span> <span style="color: #3F6E75">TeacherSerializer</span>(<span style="color: #000000">serializers.ModelSerializer</span>):
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a>    <span style="color: #A90D91">class</span> <span style="color: #3F6E75">Meta</span>:
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>        <span style="color: #000000">model</span> <span style="color: #000000">=</span> <span style="color: #000000">Teacher</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>        <span style="color: #000000">exclude</span> <span style="color: #000000">=</span> (<span style="color: #C41A16">&#39;subject&#39;</span>, )
+</code></pre></div></td></tr></table></div>
+<p>编写视图函数。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-1"> 1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-2"> 2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-3"> 3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-4"> 4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-5"> 5</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-6"> 6</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-7"> 7</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-8"> 8</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-9"> 9</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-10">10</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-11">11</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span style="color: #000000">@api_view</span>((<span style="color: #C41A16">&#39;GET&#39;</span>, ))
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span style="color: #A90D91">def</span> <span style="color: #000000">show_teachers</span>(<span style="color: #000000">request</span>: <span style="color: #000000">HttpRequest</span>) <span style="color: #000000">-&gt;</span> <span style="color: #000000">HttpResponse</span>:
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>    <span style="color: #A90D91">try</span>:
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>        <span style="color: #000000">sno</span> <span style="color: #000000">=</span> <span style="color: #A90D91">int</span>(<span style="color: #000000">request.GET.get</span>(<span style="color: #C41A16">&#39;sno&#39;</span>))
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>        <span style="color: #000000">subject</span> <span style="color: #000000">=</span> <span style="color: #000000">Subject.objects.only</span>(<span style="color: #C41A16">&#39;name&#39;</span>)<span style="color: #000000">.get</span>(<span style="color: #000000">no=sno</span>)
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>        <span style="color: #000000">teachers</span> <span style="color: #000000">=</span> <span style="color: #000000">Teacher.objects.filter</span>(<span style="color: #000000">subject=subject</span>)<span style="color: #000000">.defer</span>(<span style="color: #C41A16">&#39;subject&#39;</span>)<span style="color: #000000">.order_by</span>(<span style="color: #C41A16">&#39;no&#39;</span>)
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a>        <span style="color: #000000">subject_seri</span> <span style="color: #000000">=</span> <span style="color: #000000">SubjectSimpleSerializer</span>(<span style="color: #000000">subject</span>)
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>        <span style="color: #000000">teacher_seri</span> <span style="color: #000000">=</span> <span style="color: #000000">TeacherSerializer</span>(<span style="color: #000000">teachers</span>, <span style="color: #000000">many=</span><span style="color: #A90D91">True</span>)
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a>        <span style="color: #A90D91">return</span> <span style="color: #000000">Response</span>({<span style="color: #C41A16">&#39;subject&#39;</span>: <span style="color: #000000">subject_seri.data</span>, <span style="color: #C41A16">&#39;teachers&#39;</span>: <span style="color: #000000">teacher_seri.data</span>})
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a>    <span style="color: #A90D91">except</span> (<span style="color: #000000">TypeError</span>, <span style="color: #000000">ValueError</span>, <span style="color: #000000">Subject.DoesNotExist</span>):
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a>        <span style="color: #A90D91">return</span> <span style="color: #000000">Response</span>(<span style="color: #000000">status=</span><span style="color: #1C01CE">404</span>)
+</code></pre></div></td></tr></table></div>
+<p>配置URL映射。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-6-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-6-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-6-3">3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-6-4">4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-6-5">5</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span style="color: #000000">urlpatterns</span> <span style="color: #000000">=</span> [
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>    <span style="color: #000000">path</span>(<span style="color: #C41A16">&#39;api/teachers/&#39;</span>, <span style="color: #000000">show_teachers</span>),
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a>]
+</code></pre></div></td></tr></table></div>
+<p>通过Vue.js渲染页面。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">HTML</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-1"> 1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-2"> 2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-3"> 3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-4"> 4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-5"> 5</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-6"> 6</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-7"> 7</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-8"> 8</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-9"> 9</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-10">10</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-11">11</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-12">12</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-13">13</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-14">14</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-15">15</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-16">16</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-17">17</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-18">18</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-19">19</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-20">20</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-21">21</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-22">22</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-23">23</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-24">24</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-25">25</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-26">26</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-27">27</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-28">28</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-29">29</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-30">30</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-31">31</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-32">32</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-33">33</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-34">34</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-35">35</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-36">36</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-37">37</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-38">38</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-39">39</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-40">40</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-41">41</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-42">42</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-43">43</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-44">44</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-45">45</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-46">46</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-47">47</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-48">48</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-49">49</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-50">50</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-51">51</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-52">52</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-53">53</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-54">54</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-55">55</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-56">56</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-57">57</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-58">58</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-59">59</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-60">60</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-61">61</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-62">62</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-63">63</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-64">64</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-65">65</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-66">66</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-67">67</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-68">68</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-69">69</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-70">70</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-71">71</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-72">72</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-73">73</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-74">74</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-75">75</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-76">76</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-77">77</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span style="color: #633820">&lt;!DOCTYPE html&gt;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>&lt;<span style="color: #000000">html</span> <span style="color: #836C28">lang</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;en&quot;</span>&gt;
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>&lt;<span style="color: #000000">head</span>&gt;
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>    &lt;<span style="color: #000000">meta</span> <span style="color: #836C28">charset</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;UTF-8&quot;</span>&gt;
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>    &lt;<span style="color: #000000">title</span>&gt;老师信息&lt;/<span style="color: #000000">title</span>&gt;
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>    &lt;<span style="color: #000000">style</span>&gt;
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a>        <span style="color: #177500">/* 此处省略掉层叠样式表 */</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a>    &lt;/<span style="color: #000000">style</span>&gt;
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a>&lt;/<span style="color: #000000">head</span>&gt;
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a>&lt;<span style="color: #000000">body</span>&gt;
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a>    &lt;<span style="color: #000000">div</span> <span style="color: #836C28">id</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;container&quot;</span>&gt;
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a>        &lt;<span style="color: #000000">h1</span>&gt;{{ subject.name }}学科的老师信息&lt;/<span style="color: #000000">h1</span>&gt;
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a>        &lt;<span style="color: #000000">hr</span>&gt;
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a>        &lt;<span style="color: #000000">h2</span> <span style="color: #836C28">v-if</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;loaded &amp;&amp; teachers.length == 0&quot;</span>&gt;暂无该学科老师信息&lt;/<span style="color: #000000">h2</span>&gt;
+<a id="__codelineno-7-15" name="__codelineno-7-15"></a>        &lt;<span style="color: #000000">div</span> <span style="color: #836C28">class</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;teacher&quot;</span> <span style="color: #836C28">v-for</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;teacher in teachers&quot;</span>&gt;
+<a id="__codelineno-7-16" name="__codelineno-7-16"></a>            &lt;<span style="color: #000000">div</span> <span style="color: #836C28">class</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;photo&quot;</span>&gt;
+<a id="__codelineno-7-17" name="__codelineno-7-17"></a>                &lt;<span style="color: #000000">img</span> <span style="color: #836C28">:src</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;&#39;/static/images/&#39; + teacher.photo&quot;</span> <span style="color: #836C28">height</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;140&quot;</span> <span style="color: #836C28">alt</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;&quot;</span>&gt;
+<a id="__codelineno-7-18" name="__codelineno-7-18"></a>            &lt;/<span style="color: #000000">div</span>&gt;
+<a id="__codelineno-7-19" name="__codelineno-7-19"></a>            &lt;<span style="color: #000000">div</span> <span style="color: #836C28">class</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;info&quot;</span>&gt;
+<a id="__codelineno-7-20" name="__codelineno-7-20"></a>                &lt;<span style="color: #000000">div</span>&gt;
+<a id="__codelineno-7-21" name="__codelineno-7-21"></a>                    &lt;<span style="color: #000000">span</span>&gt;&lt;<span style="color: #000000">strong</span>&gt;姓名：{{ teacher.name }}&lt;/<span style="color: #000000">strong</span>&gt;&lt;/<span style="color: #000000">span</span>&gt;
+<a id="__codelineno-7-22" name="__codelineno-7-22"></a>                    &lt;<span style="color: #000000">span</span>&gt;性别：{{ teacher.sex | maleOrFemale }}&lt;/<span style="color: #000000">span</span>&gt;
+<a id="__codelineno-7-23" name="__codelineno-7-23"></a>                    &lt;<span style="color: #000000">span</span>&gt;出生日期：{{ teacher.birth }}&lt;/<span style="color: #000000">span</span>&gt;
+<a id="__codelineno-7-24" name="__codelineno-7-24"></a>                &lt;/<span style="color: #000000">div</span>&gt;
+<a id="__codelineno-7-25" name="__codelineno-7-25"></a>                &lt;<span style="color: #000000">div</span> <span style="color: #836C28">class</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;intro&quot;</span>&gt;{{ teacher.intro }}&lt;/<span style="color: #000000">div</span>&gt;
+<a id="__codelineno-7-26" name="__codelineno-7-26"></a>                &lt;<span style="color: #000000">div</span> <span style="color: #836C28">class</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;comment&quot;</span>&gt;
+<a id="__codelineno-7-27" name="__codelineno-7-27"></a>                    &lt;<span style="color: #000000">a</span> <span style="color: #836C28">href</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;&quot;</span> <span style="color: #000000">@</span><span style="color: #836C28">click</span><span style="color: #000000">.</span><span style="color: #836C28">prevent</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;vote(teacher, true)&quot;</span>&gt;好评&lt;/<span style="color: #000000">a</span>&gt;<span style="color: #000000">&amp;nbsp;&amp;nbsp;</span>
+<a id="__codelineno-7-28" name="__codelineno-7-28"></a>                    (&lt;<span style="color: #000000">strong</span>&gt;{{ teacher.good_count }}&lt;/<span style="color: #000000">strong</span>&gt;)
+<a id="__codelineno-7-29" name="__codelineno-7-29"></a>                    <span style="color: #000000">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+<a id="__codelineno-7-30" name="__codelineno-7-30"></a>                    &lt;<span style="color: #000000">a</span> <span style="color: #836C28">href</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;&quot;</span> <span style="color: #000000">@</span><span style="color: #836C28">click</span><span style="color: #000000">.</span><span style="color: #836C28">prevent</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;vote(teacher, false)&quot;</span>&gt;差评&lt;/<span style="color: #000000">a</span>&gt;<span style="color: #000000">&amp;nbsp;&amp;nbsp;</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31"></a>                    (&lt;<span style="color: #000000">strong</span>&gt;{{ teacher.bad_count }}&lt;/<span style="color: #000000">strong</span>&gt;)
+<a id="__codelineno-7-32" name="__codelineno-7-32"></a>                &lt;/<span style="color: #000000">div</span>&gt;
+<a id="__codelineno-7-33" name="__codelineno-7-33"></a>            &lt;/<span style="color: #000000">div</span>&gt;
+<a id="__codelineno-7-34" name="__codelineno-7-34"></a>        &lt;/<span style="color: #000000">div</span>&gt;
+<a id="__codelineno-7-35" name="__codelineno-7-35"></a>        &lt;<span style="color: #000000">a</span> <span style="color: #836C28">href</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;/static/html/subjects.html&quot;</span>&gt;返回首页&lt;/<span style="color: #000000">a</span>&gt;
+<a id="__codelineno-7-36" name="__codelineno-7-36"></a>    &lt;/<span style="color: #000000">div</span>&gt;
+<a id="__codelineno-7-37" name="__codelineno-7-37"></a>    &lt;<span style="color: #000000">script</span> <span style="color: #836C28">src</span><span style="color: #000000">=</span><span style="color: #C41A16">&quot;https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js&quot;</span>&gt;&lt;/<span style="color: #000000">script</span>&gt;
+<a id="__codelineno-7-38" name="__codelineno-7-38"></a>    &lt;<span style="color: #000000">script</span>&gt;
+<a id="__codelineno-7-39" name="__codelineno-7-39"></a>        <span style="color: #A90D91">let</span> <span style="color: #000000">app</span> <span style="color: #000000">=</span> <span style="color: #000000">new</span> <span style="color: #000000">Vue</span>({
+<a id="__codelineno-7-40" name="__codelineno-7-40"></a>            <span style="color: #000000">el:</span> <span style="color: #C41A16">&#39;#container&#39;</span>,
+<a id="__codelineno-7-41" name="__codelineno-7-41"></a>            <span style="color: #000000">data:</span> {
+<a id="__codelineno-7-42" name="__codelineno-7-42"></a>                <span style="color: #000000">subject:</span> {},
+<a id="__codelineno-7-43" name="__codelineno-7-43"></a>                <span style="color: #000000">teachers:</span> [],
+<a id="__codelineno-7-44" name="__codelineno-7-44"></a>                <span style="color: #000000">loaded:</span> <span style="color: #A90D91">false</span>
+<a id="__codelineno-7-45" name="__codelineno-7-45"></a>            },
+<a id="__codelineno-7-46" name="__codelineno-7-46"></a>            <span style="color: #000000">created</span>() {
+<a id="__codelineno-7-47" name="__codelineno-7-47"></a>                <span style="color: #000000">fetch</span>(<span style="color: #C41A16">&#39;/api/teachers/&#39;</span> <span style="color: #000000">+</span> <span style="color: #000000">location</span>.<span style="color: #000000">search</span>)
+<a id="__codelineno-7-48" name="__codelineno-7-48"></a>                    .<span style="color: #000000">then</span>(<span style="color: #000000">resp</span> =&gt; <span style="color: #000000">resp</span>.<span style="color: #000000">json</span>())
+<a id="__codelineno-7-49" name="__codelineno-7-49"></a>                    .<span style="color: #000000">then</span>(<span style="color: #000000">json</span> =&gt; {
+<a id="__codelineno-7-50" name="__codelineno-7-50"></a>                        <span style="color: #A90D91">this</span>.<span style="color: #000000">subject</span> <span style="color: #000000">=</span> <span style="color: #000000">json</span>.<span style="color: #000000">subject</span>
+<a id="__codelineno-7-51" name="__codelineno-7-51"></a>                        <span style="color: #A90D91">this</span>.<span style="color: #000000">teachers</span> <span style="color: #000000">=</span> <span style="color: #000000">json</span>.<span style="color: #000000">teachers</span>
+<a id="__codelineno-7-52" name="__codelineno-7-52"></a>                    })
+<a id="__codelineno-7-53" name="__codelineno-7-53"></a>            },
+<a id="__codelineno-7-54" name="__codelineno-7-54"></a>            <span style="color: #000000">filters:</span> {
+<a id="__codelineno-7-55" name="__codelineno-7-55"></a>                <span style="color: #000000">maleOrFemale</span>(<span style="color: #000000">sex</span>) {
+<a id="__codelineno-7-56" name="__codelineno-7-56"></a>                    <span style="color: #A90D91">return</span> <span style="color: #000000">sex?</span> <span style="color: #C41A16">&#39;男&#39;</span><span style="color: #000000">:</span> <span style="color: #C41A16">&#39;女&#39;</span>
+<a id="__codelineno-7-57" name="__codelineno-7-57"></a>                }
+<a id="__codelineno-7-58" name="__codelineno-7-58"></a>            },
+<a id="__codelineno-7-59" name="__codelineno-7-59"></a>            <span style="color: #000000">methods:</span> {
+<a id="__codelineno-7-60" name="__codelineno-7-60"></a>               <span style="color: #000000">vote</span>(<span style="color: #000000">teacher</span>, <span style="color: #000000">flag</span>) {
+<a id="__codelineno-7-61" name="__codelineno-7-61"></a>                    <span style="color: #A90D91">let</span> <span style="color: #000000">url</span> <span style="color: #000000">=</span> <span style="color: #000000">flag?</span> <span style="color: #C41A16">&#39;/praise/&#39;</span> <span style="color: #000000">:</span> <span style="color: #C41A16">&#39;/criticize/&#39;</span>
+<a id="__codelineno-7-62" name="__codelineno-7-62"></a>                    <span style="color: #000000">url</span> <span style="color: #000000">+=</span> <span style="color: #C41A16">&#39;?tno=&#39;</span> <span style="color: #000000">+</span> <span style="color: #000000">teacher</span>.<span style="color: #000000">no</span>
+<a id="__codelineno-7-63" name="__codelineno-7-63"></a>                    <span style="color: #000000">fetch</span>(<span style="color: #000000">url</span>).<span style="color: #000000">then</span>(<span style="color: #000000">resp</span> =&gt; <span style="color: #000000">resp</span>.<span style="color: #000000">json</span>()).<span style="color: #000000">then</span>(<span style="color: #000000">json</span> =&gt; {
+<a id="__codelineno-7-64" name="__codelineno-7-64"></a>                        <span style="color: #A90D91">if</span> (<span style="color: #000000">json</span>.<span style="color: #000000">code</span> <span style="color: #000000">===</span> <span style="color: #1C01CE">10000</span>) {
+<a id="__codelineno-7-65" name="__codelineno-7-65"></a>                            <span style="color: #A90D91">if</span> (<span style="color: #000000">flag</span>) {
+<a id="__codelineno-7-66" name="__codelineno-7-66"></a>                                <span style="color: #000000">teacher</span>.<span style="color: #000000">good_count</span> <span style="color: #000000">=</span> <span style="color: #000000">json</span>.<span style="color: #000000">count</span>
+<a id="__codelineno-7-67" name="__codelineno-7-67"></a>                            } <span style="color: #A90D91">else</span> {
+<a id="__codelineno-7-68" name="__codelineno-7-68"></a>                                <span style="color: #000000">teacher</span>.<span style="color: #000000">bad_count</span> <span style="color: #000000">=</span> <span style="color: #000000">json</span>.<span style="color: #000000">count</span>
+<a id="__codelineno-7-69" name="__codelineno-7-69"></a>                            }
+<a id="__codelineno-7-70" name="__codelineno-7-70"></a>                        }
+<a id="__codelineno-7-71" name="__codelineno-7-71"></a>                    })
+<a id="__codelineno-7-72" name="__codelineno-7-72"></a>                }
+<a id="__codelineno-7-73" name="__codelineno-7-73"></a>            }
+<a id="__codelineno-7-74" name="__codelineno-7-74"></a>        })
+<a id="__codelineno-7-75" name="__codelineno-7-75"></a>    &lt;/<span style="color: #000000">script</span>&gt;
+<a id="__codelineno-7-76" name="__codelineno-7-76"></a>&lt;/<span style="color: #000000">body</span>&gt;
+<a id="__codelineno-7-77" name="__codelineno-7-77"></a>&lt;/<span style="color: #000000">html</span>&gt;
+</code></pre></div></td></tr></table></div>
+<h3 id="_4">前后端分离下的用户登录<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>之前我们提到过， HTTP是无状态的，一次请求结束连接断开，下次服务器再收到请求，它就不知道这个请求是哪个用户发过来的。但是对于一个Web应用而言，它是需要有状态管理的，这样才能让服务器知道HTTP请求来自哪个用户，从而判断是否允许该用户请求以及为用户提供更好的服务，这个过程就是常说的<strong>会话管理</strong>。</p>
+<p>之前我们做会话管理（用户跟踪）的方法是：用户登录成功后，在服务器端通过一个session对象保存用户相关数据，然后把session对象的ID写入浏览器的cookie中；下一次请求时，HTTP请求头中携带cookie的数据，服务器从HTTP请求头读取cookie中的sessionid，根据这个标识符找到对应的session对象，这样就能够获取到之前保存在session中的用户数据。我们刚才说过，REST架构是最适合互联网应用的架构，它强调了HTTP的无状态性，这样才能保证应用的水平扩展能力（当并发访问量增加时，可以通过增加新的服务器节点来为系统扩容）。显然，基于session实现用户跟踪的方式需要服务器保存session对象，在做水平扩展增加新的服务器节点时，需要复制和同步session对象，这显然是非常麻烦的。解决这个问题有两种方案，一种是架设缓存服务器（如Redis），让多个服务器节点共享缓存服务并将session对象直接置于缓存服务器中；另一种方式放弃基于session的用户跟踪，使用<strong>基于token的用户跟踪</strong>。</p>
+<p>基于token的用户跟踪是在用户登录成功后，为用户生成身份标识并保存在浏览器本地存储（localStorage、sessionStorage、cookie等）中，这样的话服务器不需要保存用户状态，从而可以很容易的做到水平扩展。基于token的用户跟踪具体流程如下：</p>
+<ol>
+<li>用户登录时，如果登录成功就按照某种方式为用户生成一个令牌（token），该令牌中通常包含了用户标识、过期时间等信息而且需要加密并生成指纹（避免伪造或篡改令牌），服务器将令牌返回给前端；</li>
+<li>前端获取到服务器返回的token，保存在浏览器本地存储中（可以保存在<code>localStorage</code>或<code>sessionStorage</code>中，对于使用Vue.js的前端项目来说，还可以通过Vuex进行状态管理）；</li>
+<li>对于使用了前端路由的项目来说，前端每次路由跳转，可以先判断<code>localStroage</code>中有无token，如果没有则跳转到登录页；</li>
+<li>每次请求后端数据接口，在HTTP请求头里携带token；后端接口判断请求头有无token，如果没有token以及token是无效的或过期的，服务器统一返回401；</li>
+<li>如果前端收到HTTP响应状态码401，则重定向到登录页面。</li>
+</ol>
+<p>通过上面的描述，相信大家已经发现了，基于token的用户跟踪最为关键是在用户登录成功时，要为用户生成一个token作为用户的身份标识。生成token的方法很多，其中一种比较成熟的解决方案是使用JSON Web Token。</p>
+<h4 id="jwt">JWT概述<a class="headerlink" href="#jwt" title="Permanent link">&para;</a></h4>
+<p>JSON Web Token通常简称为JWT，它是一种开放标准（RFC 7519）。随着RESTful架构的流行，越来越多的项目使用JWT作为用户身份认证的方式。JWT相当于是三个JSON对象经过编码后，用<code>.</code>分隔并组合到一起，这三个JSON对象分别是头部（header）、载荷（payload）和签名（signature），如下图所示。</p>
+<p><img alt="" src="../res/json-web-token.png" /></p>
+<ol>
+<li>
+<p>头部</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">JSON</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-8-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-8-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-8-3">3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-8-4">4</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>{
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>  <span style="color: #000000">&quot;alg&quot;</span>: <span style="color: #C41A16">&quot;HS256&quot;</span>,
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>  <span style="color: #000000">&quot;typ&quot;</span>: <span style="color: #C41A16">&quot;JWT&quot;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>}
+</code></pre></div></td></tr></table></div>
+<p>其中，<code>alg</code>属性表示签名的算法，默认是HMAC SHA256（简写成<code>HS256</code>）；<code>typ</code>属性表示这个令牌的类型，JWT中都统一书写为<code>JWT</code>。</p>
+</li>
+<li>
+<p>载荷</p>
+<p>载荷部分用来存放实际需要传递的数据。JWT官方文档中规定了7个可选的字段：</p>
+<ul>
+<li>iss ：签发人</li>
+<li>exp：过期时间</li>
+<li>sub：主题</li>
+<li>aud：受众</li>
+<li>nbf：生效时间</li>
+<li>iat：签发时间</li>
+<li>jti：编号</li>
+</ul>
+<p>除了官方定义的字典，我们可以根据应用的需要添加自定义的字段，如下所示。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">JSON</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-9-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-9-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-9-3">3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-9-4">4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-9-5">5</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>{
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>  <span style="color: #000000">&quot;sub&quot;</span>: <span style="color: #C41A16">&quot;1234567890&quot;</span>,
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>  <span style="color: #000000">&quot;nickname&quot;</span>: <span style="color: #C41A16">&quot;jackfrued&quot;</span>,
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a>  <span style="color: #000000">&quot;role&quot;</span>: <span style="color: #C41A16">&quot;admin&quot;</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a>}
+</code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p>签名</p>
+<p>签名部分是对前面两部分生成一个指纹，防止数据伪造和篡改。实现签名首先需要指定一个密钥。这个密钥只有服务器才知道，不能泄露给用户。然后，使用头部指定的签名算法（默认是<code>HS256</code>），按照下面的公式产生签名。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span style="color: #000000">HS256</span>(<span style="color: #000000">base64Encode</span>(<span style="color: #000000">header</span>) <span style="color: #000000">+</span> <span style="color: #C41A16">&#39;.&#39;</span> <span style="color: #000000">+</span> <span style="color: #000000">base64Encode</span>(<span style="color: #000000">payload</span>), <span style="color: #000000">secret</span>)
+</code></pre></div></td></tr></table></div>
+<p>算出签名以后，把头部、载荷、签名三个部分拼接成一个字符串，每个部分用<code>.</code>进行分隔，这样一个JWT就生成好了。</p>
+</li>
+</ol>
+<h4 id="jwt_1">JWT的优缺点<a class="headerlink" href="#jwt_1" title="Permanent link">&para;</a></h4>
+<p>使用JWT的优点非常明显，包括：</p>
+<ol>
+<li>更容易实现水平扩展，因为令牌保存在浏览器中，服务器不需要做状态管理。</li>
+<li>更容易防范CSRF攻击，因为在请求头中添加<code>localStorage</code>或<code>sessionStorage</code>中的token必须靠JavaScript代码完成，而不是自动添加到请求头中的。</li>
+<li>可以防伪造和篡改，因为JWT有签名，伪造和篡改的令牌无法通过签名验证，会被认定是无效的令牌。</li>
+</ol>
+<p>当然，任何技术不可能只有优点没有缺点，JWT也有诸多缺点，大家需要在使用的时候引起注意，具体包括：</p>
+<ol>
+<li>可能会遭受到XSS攻击（跨站脚本攻击），通过注入恶意脚本执行JavaScript代码获取到用户令牌。</li>
+<li>在令牌过期之前，无法作废已经颁发的令牌，要解决这个问题，还需要额外的中间层和代码来辅助。</li>
+<li>JWT是用户的身份令牌，一旦泄露，任何人都可以获得该用户的所有权限。为了降低令牌被盗用后产生的风险，JWT的有效期应该设置得比较短。对于一些比较重要的权限，使用时应通过其他方式再次对用户进行认证，例如短信验证码等。</li>
+</ol>
+<h4 id="pyjwt">使用PyJWT<a class="headerlink" href="#pyjwt" title="Permanent link">&para;</a></h4>
+<p>在Python代码中，可以使用三方库<code>PyJWT</code>生成和验证JWT，下面是安装<code>PyJWT</code>的命令。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Bash</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>pip install pyjwt
+</code></pre></div></td></tr></table></div>
+<p>生成令牌。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-12-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-12-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-12-3">3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-12-4">4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-12-5">5</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span style="color: #000000">payload</span> <span style="color: #000000">=</span> {
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>    <span style="color: #C41A16">&#39;exp&#39;</span>: <span style="color: #000000">datetime.datetime.utcnow</span>() <span style="color: #000000">+</span> <span style="color: #000000">datetime.timedelta</span>(<span style="color: #000000">days=</span><span style="color: #1C01CE">1</span>),
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>    <span style="color: #C41A16">&#39;userid&#39;</span>: <span style="color: #1C01CE">10001</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>}
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><span style="color: #000000">token</span> <span style="color: #000000">=</span> <span style="color: #000000">jwt.encode</span>(<span style="color: #000000">payload</span>, <span style="color: #000000">settings.SECRET_KEY</span>)<span style="color: #000000">.decode</span>()
+</code></pre></div></td></tr></table></div>
+<p>验证令牌。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-13-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-13-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-13-3">3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-13-4">4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-13-5">5</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span style="color: #A90D91">try</span>:
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>    <span style="color: #000000">token</span> <span style="color: #000000">=</span> <span style="color: #C41A16">&#39;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTQ4NzIzOTEsInVzZXJpZCI6MTAwMDF9.FM-bNxemWLqQQBIsRVvc4gq71y42I9m2zt5nlFxNHUo&#39;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>    <span style="color: #000000">payload</span> <span style="color: #000000">=</span> <span style="color: #000000">jwt.decode</span>(<span style="color: #000000">token</span>, <span style="color: #000000">settings.SECRET_KEY</span>)
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span style="color: #A90D91">except</span> <span style="color: #000000">InvalidTokenError</span>:
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a>    <span style="color: #A90D91">raise</span> <span style="color: #000000">AuthenticationFailed</span>(<span style="color: #C41A16">&#39;无效的令牌或令牌已经过期&#39;</span>)
+</code></pre></div></td></tr></table></div>
+<p>如果不清楚JWT具体的使用方式，可以先看看第55天的内容，里面提供了完整的投票项目代码的地址。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 5, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 5, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 OpenPowers
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/OpenPowers" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:<openpowers@outlook.com>" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480v-83.6c0-4 1.5-7.8 4.2-10.7l167.6-182.9c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8l-88.3-44.2C7.1 311.3.3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.expand", "navigation.tracking", "navigation.top", "search.highlight", {"tabs": false}, "search.suggest", "navigation.sections", "navigation.indexes", "header.autohide", "search.share", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      
+        <script src="../../javascripts/custom.js"></script>
+      
+    
+  </body>
+</html>

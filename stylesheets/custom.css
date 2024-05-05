@@ -1,0 +1,8 @@
+code:not(:has(*)) {
+  /* 添加自定义的样式属性 */
+  /*background-color: #e96900 !important;   !* 设置背景颜色 *!*/
+  color: #e96900 !important;                 /* 设置文字颜色 */
+  padding: 0.15em 0.3em !important;        /* 设置内边距 */
+  font-size: .8rem !important;
+  /* 其他样式属性 */
+}

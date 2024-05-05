@@ -1,0 +1,4361 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Python - 100天从新手到大师">
+      
+      
+        <meta name="author" content="OpenPowers">
+      
+      
+        <link rel="canonical" href="https://github.com/OpenPowers/Day66-80/68.NumPy%E7%9A%84%E5%BA%94%E7%94%A8-1/">
+      
+      
+        <link rel="prev" href="../67.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">
+      
+      
+        <link rel="next" href="../69.NumPy%E7%9A%84%E5%BA%94%E7%94%A8-2/">
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
+    
+    
+      
+        <title>68.NumPy的应用-1 - Python-100-Days</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,700,700i%7CUbuntu+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Ubuntu";--md-code-font:"Ubuntu Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="Blue-Grey" data-md-color-accent="Pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#numpy-1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="https://docs.python.org/zh-cn/3/" title="Python-100-Days" class="md-header__button md-logo" aria-label="Python-100-Days" data-md-component="logo">
+      
+  <img src="../../assets/python-logo@2x.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Python-100-Days
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              68.NumPy的应用-1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="Blue-Grey" data-md-color-accent="Pink"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OpenPowers/Python-100-Days" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenPowers/Python-100-Days
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://docs.python.org/zh-cn/3/" title="Python-100-Days" class="md-nav__button md-logo" aria-label="Python-100-Days" data-md-component="logo">
+      
+  <img src="../../assets/python-logo@2x.png" alt="logo">
+
+    </a>
+    Python-100-Days
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OpenPowers/Python-100-Days" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenPowers/Python-100-Days
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    README
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            README
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day01-15
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Day01-15
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/01.%E5%88%9D%E8%AF%86Python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01.初识Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/02.%E8%AF%AD%E8%A8%80%E5%85%83%E7%B4%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02.语言元素
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/03.%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03.分支结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/04.%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04.循环结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/05.%E6%9E%84%E9%80%A0%E7%A8%8B%E5%BA%8F%E9%80%BB%E8%BE%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05.构造程序逻辑
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/06.%E5%87%BD%E6%95%B0%E5%92%8C%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06.函数和模块的使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/07.%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07.字符串和常用数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/08.%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08.面向对象编程基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/09.%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09.面向对象进阶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/10.%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E5%92%8C%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10.图形用户界面和游戏开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/11.%E6%96%87%E4%BB%B6%E5%92%8C%E5%BC%82%E5%B8%B8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11.文件和异常
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/12.%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12.字符串和正则表达式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/13.%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13.进程和线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/14.%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14.网络编程入门和网络应用开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day01-15/15.%E5%9B%BE%E5%83%8F%E5%92%8C%E5%8A%9E%E5%85%AC%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15.图像和办公文档处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day16-20
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Day16-20
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day16-20/16-20.Python%E8%AF%AD%E8%A8%80%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-20.Python语言进阶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day21-30
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Day21-30
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day21-30/21-30.Web%E5%89%8D%E7%AB%AF%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-30.Web前端概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day31-35
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Day31-35
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day31-35/31-35.%E7%8E%A9%E8%BD%ACLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    31-35.玩转Linux操作系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day36-45
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Day36-45
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/36.%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8CMySQL%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    36.关系型数据库和MySQL概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/37.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDDL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    37.SQL详解之DDL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/38.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDML/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    38.SQL详解之DML
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/39.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDQL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    39.SQL详解之DQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/40.SQL%E8%AF%A6%E8%A7%A3%E4%B9%8BDCL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40.SQL详解之DCL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/41.MySQL%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    41.MySQL新特性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/42.%E8%A7%86%E5%9B%BE%E3%80%81%E5%87%BD%E6%95%B0%E5%92%8C%E8%BF%87%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    42.视图、函数和过程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/43.%E7%B4%A2%E5%BC%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    43.索引
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/44.Python%E6%8E%A5%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    44.Python接入MySQL数据库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day36-45/45.%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E5%92%8CHiveSQL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    45.大数据平台和HiveSQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day46-60
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Day46-60
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/46.Django%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    46.Django快速上手
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/47.%E6%B7%B1%E5%85%A5%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    47.深入模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/48.%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%92%8CAjax%E8%AF%B7%E6%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    48.静态资源和Ajax请求
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/49.Cookie%E5%92%8CSession/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    49.Cookie和Session
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/50.%E5%88%B6%E4%BD%9C%E6%8A%A5%E8%A1%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50.制作报表
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/51.%E6%97%A5%E5%BF%97%E5%92%8C%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E6%A0%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    51.日志和调试工具栏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/52.%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    52.中间件的应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/53.%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    53.前后端分离开发入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/54.RESTful%E6%9E%B6%E6%9E%84%E5%92%8CDRF%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    54.RESTful架构和DRF入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/55.RESTful%E6%9E%B6%E6%9E%84%E5%92%8CDRF%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    55.RESTful架构和DRF进阶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/56.%E4%BD%BF%E7%94%A8%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    56.使用缓存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/57.%E6%8E%A5%E5%85%A5%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    57.接入三方平台
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/58.%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E5%92%8C%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    58.异步任务和定时任务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/59.%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    59.单元测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day46-60/60.%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    60.项目上线
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day61-65
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Day61-65
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/61.%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    61.网络数据采集概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/62.%E7%94%A8Python%E8%8E%B7%E5%8F%96%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    62.用Python获取网络资源-1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/62.%E7%94%A8Python%E8%A7%A3%E6%9E%90HTML%E9%A1%B5%E9%9D%A2-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    62.用Python解析HTML页面-2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/63.Python%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    63.Python中的并发编程-1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/63.Python%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    63.Python中的并发编程-2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/63.Python%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    63.Python中的并发编程-3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/63.%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9C%A8%E7%88%AC%E8%99%AB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    63.并发编程在爬虫中的应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/64.%E4%BD%BF%E7%94%A8Selenium%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E5%8A%A8%E6%80%81%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    64.使用Selenium抓取网页动态内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day61-65/65.%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    65.爬虫框架Scrapy简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day66-80
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Day66-80
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../66.%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    66.数据分析概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../67.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    67.环境准备
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    68.NumPy的应用-1
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    68.NumPy的应用-1
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#numpy-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      NumPy的应用-1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NumPy的应用-1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建数组对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组对象的属性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组的索引运算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数组的索引运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      普通索引
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      切片索引
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      花式索引
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      布尔索引
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      案例：通过数组切片处理图像
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../69.NumPy%E7%9A%84%E5%BA%94%E7%94%A8-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    69.NumPy的应用-2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../70.NumPy%E7%9A%84%E5%BA%94%E7%94%A8-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    70.NumPy的应用-3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../71.NumPy%E7%9A%84%E5%BA%94%E7%94%A8-4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    71.NumPy的应用-4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../72.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    72.深入浅出pandas-1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../73.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    73.深入浅出pandas-2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../74.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    74.深入浅出pandas-3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../75.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    75.深入浅出pandas-4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../76.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    76.深入浅出pandas-5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../77.%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BApandas-6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    77.深入浅出pandas-6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../78.%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    78.数据可视化-1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../79.%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    79.数据可视化-2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../80.%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    80.数据可视化-3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day81-90
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Day81-90
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/81.%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%92%8C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    81.人工智能和机器学习概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/82.k%E6%9C%80%E8%BF%91%E9%82%BB%E5%88%86%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    82.k最近邻分类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/83.%E5%86%B3%E7%AD%96%E6%A0%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    83.决策树
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/83.%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%AE%9E%E6%88%98-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    83.推荐系统实战-1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/84.%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    84.贝叶斯分类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/85.%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    85.支持向量机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/86.K-%E5%9D%87%E5%80%BC%E8%81%9A%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    86.K-均值聚类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/87.%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    87.回归分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/88.%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    88.深度学习入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/89.PyTorch%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    89.PyTorch概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day81-90/90.PyTorch%E5%AE%9E%E6%88%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    90.PyTorch实战
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Day91-100
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Day91-100
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/91.%E5%9B%A2%E9%98%9F%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    91.团队项目开发的问题和解决方案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/92.Docker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    92.Docker容器技术详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/93.MySQL%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    93.MySQL性能优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/94.%E7%BD%91%E7%BB%9CAPI%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    94.网络API接口设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/95.%E4%BD%BF%E7%94%A8Django%E5%BC%80%E5%8F%91%E5%95%86%E4%B8%9A%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    95.使用Django开发商业项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/96.%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%92%8C%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    96.软件测试和自动化测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/97.%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9%E5%89%96%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    97.电商网站技术要点剖析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/98.%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF%E5%92%8C%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    98.项目部署上线和性能调优
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/99.%E9%9D%A2%E8%AF%95%E4%B8%AD%E7%9A%84%E5%85%AC%E5%85%B1%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    99.面试中的公共问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Day91-100/100.Python%E9%9D%A2%E8%AF%95%E9%A2%98%E5%AE%9E%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    100.Python面试题实录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    番外篇
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            番外篇
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/PEP8%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PEP8风格指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/Python%E4%B9%8B%E7%A6%85%E7%9A%84%E6%9C%80%E4%BD%B3%E7%BF%BB%E8%AF%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python之禅的最佳翻译
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/Python%E5%8F%82%E8%80%83%E4%B9%A6%E7%B1%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python参考书籍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/Python%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python容器使用小技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python数据分析师面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/Python%E7%BC%96%E7%A8%8B%E6%83%AF%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python编程惯例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E4%B8%80%E4%B8%AA%E5%B0%8F%E4%BE%8B%E5%AD%90%E5%8A%A9%E4%BD%A0%E5%BD%BB%E5%BA%95%E7%90%86%E8%A7%A3%E5%8D%8F%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一个小例子助你彻底理解协程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Hexo搭建自己的博客
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E5%B8%B8%E8%A7%81%E5%8F%8D%E7%88%AC%E7%AD%96%E7%95%A5%E5%8F%8A%E5%BA%94%E5%AF%B9%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常见反爬策略及应对方案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9%E4%BA%86Python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    我为什么选择了Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3%E5%8F%82%E8%80%83%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    接口文档参考示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E7%8E%A9%E8%BD%ACPyCharm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    玩转PyCharm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E7%94%A8%E5%87%BD%E6%95%B0%E8%BF%98%E6%98%AF%E7%94%A8%E5%A4%8D%E6%9D%82%E7%9A%84%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    用函数还是用复杂的表达式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E7%9F%A5%E4%B9%8E%E9%97%AE%E9%A2%98%E5%9B%9E%E7%AD%94/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    知乎问题回答
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E8%8B%B1%E8%AF%AD%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    英语面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%95%AA%E5%A4%96%E7%AF%87/%E9%82%A3%E4%BA%9B%E5%B9%B4%E6%88%91%E4%BB%AC%E8%B8%A9%E8%BF%87%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    那些年我们踩过的那些坑
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#numpy-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      NumPy的应用-1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NumPy的应用-1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建数组对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组对象的属性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      数组的索引运算
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数组的索引运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      普通索引
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      切片索引
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      花式索引
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      布尔索引
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      案例：通过数组切片处理图像
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>68.NumPy的应用-1</h1>
+
+<h2 id="numpy-1">NumPy的应用-1<a class="headerlink" href="#numpy-1" title="Permanent link">&para;</a></h2>
+<p>Numpy 是一个开源的 Python 科学计算库，<strong>用于快速处理任意维度的数组</strong>。Numpy <strong>支持常见的数组和矩阵操作</strong>，对于同样的数值计算任务，使用 NumPy 不仅代码要简洁的多，而且 NumPy 在性能上也远远优于原生 Python，至少是一到两个数量级的差距，而且数据量越大，NumPy 的优势就越明显。</p>
+<p>NumPy 最为核心的数据类型是<code>ndarray</code>，使用<code>ndarray</code>可以处理一维、二维和多维数组，该对象相当于是一个快速而灵活的大数据容器。NumPy 底层代码使用 C 语言编写，解决了 GIL 的限制，<code>ndarray</code>在存取数据的时候，数据与数据的地址都是连续的，这确保了可以进行高效率的批量操作，性能上远远优于 Python 中的<code>list</code>；另一方面<code>ndarray</code>对象提供了更多的方法来处理数据，尤其获取数据统计特征的方法，这些方法也是 Python 原生的<code>list</code>没有的。</p>
+<p>### 准备工作</p>
+<ol>
+<li>
+<p>启动 JupyterLab</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Bash</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>jupyter lab
+</code></pre></div></td></tr></table></div>
+<blockquote>
+<p><strong>提示</strong>：在启动 JupyterLab 之前，建议先安装好数据分析相关依赖项，包括之前提到的三大神器以及相关依赖项。如果使用 Anaconda，则无需单独安装，可以通过 Anaconda 的 Navigator 来启动。</p>
+</blockquote>
+</li>
+<li>
+<p>导入</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span style="color: #A90D91">import</span> <span style="color: #000000">numpy</span> <span style="color: #A90D91">as</span> <span style="color: #000000">np</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span style="color: #A90D91">import</span> <span style="color: #000000">pandas</span> <span style="color: #A90D91">as</span> <span style="color: #000000">pd</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span style="color: #A90D91">import</span> <span style="color: #000000">matplotlib.pyplot</span> <span style="color: #A90D91">as</span> <span style="color: #000000">plt</span>
+</code></pre></div></td></tr></table></div>
+<blockquote>
+<p><strong>说明</strong>：如果已经启动了 JupyterLab 但尚未安装相关依赖库，例如尚未安装<code>numpy</code>，可以在单元格中输入<code>%pip install numpy</code>并运行该单元格来安装 NumPy。当然，我们也可以在单元格中输入<code>%pip install numpy pandas matplotlib</code>把 Python 数据分析三个核心的三方库都安装上。注意上面的代码，我们不仅导入了 NumPy，还将 pandas 和 matplotlib 库一并导入了。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="_1">创建数组对象<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>创建<code>ndarray</code>对象有很多种方法，下面我们介绍一些常用的方法。</p>
+<p>方法一：使用<code>array</code>函数，通过<code>list</code>创建数组对象</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-2-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span style="color: #000000">array1</span> <span style="color: #000000">=</span> <span style="color: #000000">np.array</span>([<span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">2</span>, <span style="color: #1C01CE">3</span>, <span style="color: #1C01CE">4</span>, <span style="color: #1C01CE">5</span>])
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span style="color: #000000">array1</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>array([1, 2, 3, 4, 5])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span style="color: #000000">array2</span> <span style="color: #000000">=</span> <span style="color: #000000">np.array</span>([[<span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">2</span>, <span style="color: #1C01CE">3</span>], [<span style="color: #1C01CE">4</span>, <span style="color: #1C01CE">5</span>, <span style="color: #1C01CE">6</span>]])
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span style="color: #000000">array2</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>array([[1, 2, 3],
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>       [4, 5, 6]])
+</code></pre></div></td></tr></table></div>
+<p>方法二：使用<code>arange</code>函数，指定取值范围和跨度创建数组对象</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-6-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span style="color: #000000">array3</span> <span style="color: #000000">=</span> <span style="color: #000000">np.arange</span>(<span style="color: #1C01CE">0</span>, <span style="color: #1C01CE">20</span>, <span style="color: #1C01CE">2</span>)
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span style="color: #000000">array3</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>array([ 0,  2,  4,  6,  8, 10, 12, 14, 16, 18])
+</code></pre></div></td></tr></table></div>
+<p>方法三：使用<code>linspace</code>函数，用指定范围和元素个数创建数组对象，生成等差数列</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-8-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-8-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span style="color: #000000">array4</span> <span style="color: #000000">=</span> <span style="color: #000000">np.linspace</span>(<span style="color: #000000">-</span><span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">11</span>)
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span style="color: #000000">array4</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>array([-1. , -0.8, -0.6, -0.4, -0.2,  0. ,  0.2,  0.4,  0.6,  0.8,  1. ])
+</code></pre></div></td></tr></table></div>
+<p>方法四：使用<code>logspace</code>函数，生成等比数列</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-10-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span style="color: #000000">array5</span> <span style="color: #000000">=</span> <span style="color: #000000">np.logspace</span>(<span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">10</span>, <span style="color: #000000">num=</span><span style="color: #1C01CE">10</span>, <span style="color: #000000">base=</span><span style="color: #1C01CE">2</span>)
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span style="color: #000000">array5</span>
+</code></pre></div></td></tr></table></div>
+<blockquote>
+<p><strong>注意</strong>：等比数列的起始值是<span class="arithmatex"><span class="MathJax_Preview">2^1</span><script type="math/tex">2^1</script></span>，等比数列的终止值是<span class="arithmatex"><span class="MathJax_Preview">2^{10}</span><script type="math/tex">2^{10}</script></span>，<code>num</code>是元素的个数，<code>base</code>就是底数。</p>
+</blockquote>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>array([   2.,    4.,    8.,   16.,   32.,   64.,  128.,  256.,  512., 1024.])
+</code></pre></div></td></tr></table></div>
+<p>方法五：通过<code>fromstring</code>函数从字符串提取数据创建数组对象</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-12-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span style="color: #000000">array6</span> <span style="color: #000000">=</span> <span style="color: #000000">np.fromstring</span>(<span style="color: #C41A16">&#39;1, 2, 3, 4, 5&#39;</span>, <span style="color: #000000">sep=</span><span style="color: #C41A16">&#39;,&#39;</span>, <span style="color: #000000">dtype=</span><span style="color: #C41A16">&#39;i8&#39;</span>)
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span style="color: #000000">array6</span> 
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>array([1, 2, 3, 4, 5])
+</code></pre></div></td></tr></table></div>
+<p>方法六：通过<code>fromiter</code>函数从生成器（迭代器）中获取数据创建数组对象</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-14-1"> 1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-14-2"> 2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-14-3"> 3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-14-4"> 4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-14-5"> 5</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-14-6"> 6</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-14-7"> 7</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-14-8"> 8</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-14-9"> 9</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-14-10">10</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span style="color: #A90D91">def</span> <span style="color: #000000">fib</span>(<span style="color: #000000">how_many</span>):
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>    <span style="color: #000000">a</span>, <span style="color: #000000">b</span> <span style="color: #000000">=</span> <span style="color: #1C01CE">0</span>, <span style="color: #1C01CE">1</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a>    <span style="color: #A90D91">for</span> <span style="color: #000000">_</span> <span style="color: #000000">in</span> <span style="color: #A90D91">range</span>(<span style="color: #000000">how_many</span>):
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a>        <span style="color: #000000">a</span>, <span style="color: #000000">b</span> <span style="color: #000000">=</span> <span style="color: #000000">b</span>, <span style="color: #000000">a</span> <span style="color: #000000">+</span> <span style="color: #000000">b</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a>        <span style="color: #A90D91">yield</span> <span style="color: #000000">a</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8"></a><span style="color: #000000">gen</span> <span style="color: #000000">=</span> <span style="color: #000000">fib</span>(<span style="color: #1C01CE">20</span>)
+<a id="__codelineno-14-9" name="__codelineno-14-9"></a><span style="color: #000000">array7</span> <span style="color: #000000">=</span> <span style="color: #000000">np.fromiter</span>(<span style="color: #000000">gen</span>, <span style="color: #000000">dtype=</span><span style="color: #C41A16">&#39;i8&#39;</span>)
+<a id="__codelineno-14-10" name="__codelineno-14-10"></a><span style="color: #000000">array7</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-15-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-15-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>array([   1,    1,    2,    3,    5,    8,   13,   21,   34,   55,   89,
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>        144,  233,  377,  610,  987, 1597, 2584, 4181, 6765])
+</code></pre></div></td></tr></table></div>
+<p>方法七：使用<code>numpy.random</code>模块的函数生成随机数创建数组对象</p>
+<p>产生10个<span class="arithmatex"><span class="MathJax_Preview">[0, 1)</span><script type="math/tex">[0, 1)</script></span>范围的随机小数，代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-16-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-16-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span style="color: #000000">array8</span> <span style="color: #000000">=</span> <span style="color: #000000">np.random.rand</span>(<span style="color: #1C01CE">10</span>)
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a><span style="color: #000000">array8</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-17-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-17-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>array([0.45556132, 0.67871326, 0.4552213 , 0.96671509, 0.44086463,
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>       0.72650875, 0.79877188, 0.12153022, 0.24762739, 0.6669852 ])
+</code></pre></div></td></tr></table></div>
+<p>产生10个<span class="arithmatex"><span class="MathJax_Preview">[1, 100)</span><script type="math/tex">[1, 100)</script></span>范围的随机整数，代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-18-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-18-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span style="color: #000000">array9</span> <span style="color: #000000">=</span> <span style="color: #000000">np.random.randint</span>(<span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">100</span>, <span style="color: #1C01CE">10</span>)
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a><span style="color: #000000">array9</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-19-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>array([29, 97, 87, 47, 39, 19, 71, 32, 79, 34])
+</code></pre></div></td></tr></table></div>
+<p>产生20个<span class="arithmatex"><span class="MathJax_Preview">\small{\mu=50}</span><script type="math/tex">\small{\mu=50}</script></span>，<span class="arithmatex"><span class="MathJax_Preview">\small{\sigma=10}</span><script type="math/tex">\small{\sigma=10}</script></span>的正态分布随机数，代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-20-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-20-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span style="color: #000000">array10</span> <span style="color: #000000">=</span> <span style="color: #000000">np.random.normal</span>(<span style="color: #1C01CE">50</span>, <span style="color: #1C01CE">10</span>, <span style="color: #1C01CE">20</span>)
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a><span style="color: #000000">array10</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-21-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-21-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-21-3">3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-21-4">4</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>array([55.04155586, 46.43510797, 20.28371158, 62.67884053, 61.23185964,
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>       38.22682148, 53.17126151, 43.54741592, 36.11268017, 40.94086676,
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a>       63.27911699, 46.92688903, 37.1593374 , 67.06525656, 67.47269463,
+<a id="__codelineno-21-4" name="__codelineno-21-4"></a>       23.37925889, 31.45312239, 48.34532466, 55.09180924, 47.95702787])
+</code></pre></div></td></tr></table></div>
+<p>产生<span class="arithmatex"><span class="MathJax_Preview">[0, 1)</span><script type="math/tex">[0, 1)</script></span>范围的随机小数构成的3行4列的二维数组，代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-22-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-22-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a><span style="color: #000000">array11</span> <span style="color: #000000">=</span> <span style="color: #000000">np.random.rand</span>(<span style="color: #1C01CE">3</span>, <span style="color: #1C01CE">4</span>)
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a><span style="color: #000000">array11</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-23-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-23-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-23-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>array([[0.54017809, 0.46797771, 0.78291445, 0.79501326],
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a>       [0.93973783, 0.21434806, 0.03592874, 0.88838892],
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a>       [0.84130479, 0.3566601 , 0.99935473, 0.26353598]])
+</code></pre></div></td></tr></table></div>
+<p>产生<span class="arithmatex"><span class="MathJax_Preview">[1, 100)</span><script type="math/tex">[1, 100)</script></span>范围的随机整数构成的三维数组，代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-24-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-24-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span style="color: #000000">array12</span> <span style="color: #000000">=</span> <span style="color: #000000">np.random.randint</span>(<span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">100</span>, (<span style="color: #1C01CE">3</span>, <span style="color: #1C01CE">4</span>, <span style="color: #1C01CE">5</span>))
+<a id="__codelineno-24-2" name="__codelineno-24-2"></a><span style="color: #000000">array12</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-1"> 1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-2"> 2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-3"> 3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-4"> 4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-5"> 5</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-6"> 6</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-7"> 7</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-8"> 8</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-9"> 9</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-10">10</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-11">11</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-12">12</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-13">13</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-25-14">14</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a>array([[[94, 26, 49, 24, 43],
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a>        [27, 27, 33, 98, 33],
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a>        [13, 73,  6,  1, 77],
+<a id="__codelineno-25-4" name="__codelineno-25-4"></a>        [54, 32, 51, 86, 59]],
+<a id="__codelineno-25-5" name="__codelineno-25-5"></a>
+<a id="__codelineno-25-6" name="__codelineno-25-6"></a>       [[62, 75, 62, 29, 87],
+<a id="__codelineno-25-7" name="__codelineno-25-7"></a>        [90, 26,  6, 79, 41],
+<a id="__codelineno-25-8" name="__codelineno-25-8"></a>        [31, 15, 32, 56, 64],
+<a id="__codelineno-25-9" name="__codelineno-25-9"></a>        [37, 84, 61, 71, 71]],
+<a id="__codelineno-25-10" name="__codelineno-25-10"></a>
+<a id="__codelineno-25-11" name="__codelineno-25-11"></a>       [[45, 24, 78, 77, 41],
+<a id="__codelineno-25-12" name="__codelineno-25-12"></a>        [75, 37,  4, 74, 93],
+<a id="__codelineno-25-13" name="__codelineno-25-13"></a>        [ 1, 36, 36, 60, 43],
+<a id="__codelineno-25-14" name="__codelineno-25-14"></a>        [23, 84, 44, 89, 79]]])
+</code></pre></div></td></tr></table></div>
+<p>方法八：创建全0、全1或指定元素的数组</p>
+<p>使用<code>zeros</code>函数，代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-26-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-26-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span style="color: #000000">array13</span> <span style="color: #000000">=</span> <span style="color: #000000">np.zeros</span>((<span style="color: #1C01CE">3</span>, <span style="color: #1C01CE">4</span>))
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a><span style="color: #000000">array13</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-27-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-27-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-27-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a>array([[0., 0., 0., 0.],
+<a id="__codelineno-27-2" name="__codelineno-27-2"></a>       [0., 0., 0., 0.],
+<a id="__codelineno-27-3" name="__codelineno-27-3"></a>       [0., 0., 0., 0.]])
+</code></pre></div></td></tr></table></div>
+<p>使用<code>ones</code>函数，代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-28-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-28-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span style="color: #000000">array14</span> <span style="color: #000000">=</span> <span style="color: #000000">np.ones</span>((<span style="color: #1C01CE">3</span>, <span style="color: #1C01CE">4</span>))
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a><span style="color: #000000">array14</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-29-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-29-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-29-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a>array([[1., 1., 1., 1.],
+<a id="__codelineno-29-2" name="__codelineno-29-2"></a>       [1., 1., 1., 1.],
+<a id="__codelineno-29-3" name="__codelineno-29-3"></a>       [1., 1., 1., 1.]])
+</code></pre></div></td></tr></table></div>
+<p>使用<code>full</code>函数，代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-30-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-30-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span style="color: #000000">array15</span> <span style="color: #000000">=</span> <span style="color: #000000">np.full</span>((<span style="color: #1C01CE">3</span>, <span style="color: #1C01CE">4</span>), <span style="color: #1C01CE">10</span>)
+<a id="__codelineno-30-2" name="__codelineno-30-2"></a><span style="color: #000000">array15</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-31-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-31-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-31-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a>array([[10, 10, 10, 10],
+<a id="__codelineno-31-2" name="__codelineno-31-2"></a>       [10, 10, 10, 10],
+<a id="__codelineno-31-3" name="__codelineno-31-3"></a>       [10, 10, 10, 10]])
+</code></pre></div></td></tr></table></div>
+<p>方法九：使用<code>eye</code>函数创建单位矩阵</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-32-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a><span style="color: #000000">np.eye</span>(<span style="color: #1C01CE">4</span>)
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-33-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-33-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-33-3">3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-33-4">4</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1"></a>array([[1., 0., 0., 0.],
+<a id="__codelineno-33-2" name="__codelineno-33-2"></a>       [0., 1., 0., 0.],
+<a id="__codelineno-33-3" name="__codelineno-33-3"></a>       [0., 0., 1., 0.],
+<a id="__codelineno-33-4" name="__codelineno-33-4"></a>       [0., 0., 0., 1.]])
+</code></pre></div></td></tr></table></div>
+<p>方法十：读取图片获得对应的三维数组</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-34-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-34-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1"></a><span style="color: #000000">array16</span> <span style="color: #000000">=</span> <span style="color: #000000">plt.imread</span>(<span style="color: #C41A16">&#39;res/guido.jpg&#39;</span>)
+<a id="__codelineno-34-2" name="__codelineno-34-2"></a><span style="color: #000000">array16</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-1"> 1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-2"> 2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-3"> 3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-4"> 4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-5"> 5</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-6"> 6</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-7"> 7</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-8"> 8</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-9"> 9</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-10">10</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-11">11</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-12">12</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-13">13</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-14">14</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-15">15</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-16">16</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-17">17</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-18">18</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-19">19</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-20">20</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-21">21</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-22">22</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-23">23</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-24">24</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-25">25</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-26">26</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-27">27</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-28">28</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-29">29</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-30">30</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-31">31</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-32">32</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-33">33</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-34">34</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-35">35</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-36">36</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-37">37</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-38">38</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-39">39</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-40">40</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-41">41</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-42">42</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-43">43</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-44">44</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-45">45</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-46">46</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-47">47</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-48">48</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-35-49">49</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1"></a>array([[[ 36,  33,  28],
+<a id="__codelineno-35-2" name="__codelineno-35-2"></a>        [ 36,  33,  28],
+<a id="__codelineno-35-3" name="__codelineno-35-3"></a>        [ 36,  33,  28],
+<a id="__codelineno-35-4" name="__codelineno-35-4"></a>        ...,
+<a id="__codelineno-35-5" name="__codelineno-35-5"></a>        [ 32,  31,  29],
+<a id="__codelineno-35-6" name="__codelineno-35-6"></a>        [ 32,  31,  27],
+<a id="__codelineno-35-7" name="__codelineno-35-7"></a>        [ 31,  32,  26]],
+<a id="__codelineno-35-8" name="__codelineno-35-8"></a>
+<a id="__codelineno-35-9" name="__codelineno-35-9"></a>       [[ 37,  34,  29],
+<a id="__codelineno-35-10" name="__codelineno-35-10"></a>        [ 38,  35,  30],
+<a id="__codelineno-35-11" name="__codelineno-35-11"></a>        [ 38,  35,  30],
+<a id="__codelineno-35-12" name="__codelineno-35-12"></a>        ...,
+<a id="__codelineno-35-13" name="__codelineno-35-13"></a>        [ 31,  30,  28],
+<a id="__codelineno-35-14" name="__codelineno-35-14"></a>        [ 31,  30,  26],
+<a id="__codelineno-35-15" name="__codelineno-35-15"></a>        [ 30,  31,  25]],
+<a id="__codelineno-35-16" name="__codelineno-35-16"></a>
+<a id="__codelineno-35-17" name="__codelineno-35-17"></a>       [[ 38,  35,  30],
+<a id="__codelineno-35-18" name="__codelineno-35-18"></a>        [ 38,  35,  30],
+<a id="__codelineno-35-19" name="__codelineno-35-19"></a>        [ 38,  35,  30],
+<a id="__codelineno-35-20" name="__codelineno-35-20"></a>        ...,
+<a id="__codelineno-35-21" name="__codelineno-35-21"></a>        [ 30,  29,  27],
+<a id="__codelineno-35-22" name="__codelineno-35-22"></a>        [ 30,  29,  25],
+<a id="__codelineno-35-23" name="__codelineno-35-23"></a>        [ 29,  30,  25]],
+<a id="__codelineno-35-24" name="__codelineno-35-24"></a>
+<a id="__codelineno-35-25" name="__codelineno-35-25"></a>       ...,
+<a id="__codelineno-35-26" name="__codelineno-35-26"></a>
+<a id="__codelineno-35-27" name="__codelineno-35-27"></a>       [[239, 178, 123],
+<a id="__codelineno-35-28" name="__codelineno-35-28"></a>        [237, 176, 121],
+<a id="__codelineno-35-29" name="__codelineno-35-29"></a>        [235, 174, 119],
+<a id="__codelineno-35-30" name="__codelineno-35-30"></a>        ...,
+<a id="__codelineno-35-31" name="__codelineno-35-31"></a>        [ 78,  68,  56],
+<a id="__codelineno-35-32" name="__codelineno-35-32"></a>        [ 75,  67,  54],
+<a id="__codelineno-35-33" name="__codelineno-35-33"></a>        [ 73,  65,  52]],
+<a id="__codelineno-35-34" name="__codelineno-35-34"></a>
+<a id="__codelineno-35-35" name="__codelineno-35-35"></a>       [[238, 177, 120],
+<a id="__codelineno-35-36" name="__codelineno-35-36"></a>        [236, 175, 118],
+<a id="__codelineno-35-37" name="__codelineno-35-37"></a>        [234, 173, 116],
+<a id="__codelineno-35-38" name="__codelineno-35-38"></a>        ...,
+<a id="__codelineno-35-39" name="__codelineno-35-39"></a>        [ 82,  70,  58],
+<a id="__codelineno-35-40" name="__codelineno-35-40"></a>        [ 78,  68,  56],
+<a id="__codelineno-35-41" name="__codelineno-35-41"></a>        [ 75,  66,  51]],
+<a id="__codelineno-35-42" name="__codelineno-35-42"></a>
+<a id="__codelineno-35-43" name="__codelineno-35-43"></a>       [[238, 176, 119],
+<a id="__codelineno-35-44" name="__codelineno-35-44"></a>        [236, 175, 118],
+<a id="__codelineno-35-45" name="__codelineno-35-45"></a>        [234, 173, 116],
+<a id="__codelineno-35-46" name="__codelineno-35-46"></a>        ...,
+<a id="__codelineno-35-47" name="__codelineno-35-47"></a>        [ 84,  70,  61],
+<a id="__codelineno-35-48" name="__codelineno-35-48"></a>        [ 81,  69,  57],
+<a id="__codelineno-35-49" name="__codelineno-35-49"></a>        [ 79,  67,  53]]], dtype=uint8)
+</code></pre></div></td></tr></table></div>
+<blockquote>
+<p><strong>说明</strong>：上面的代码读取了当前路径下<code>res</code>目录中名为<code>guido.jpg</code> 的图片文件，计算机系统中的图片通常由若干行若干列的像素点构成，而每个像素点又是由红绿蓝三原色构成的，刚好可以用三维数组来表示。读取图片用到了<code>matplotlib</code>库的<code>imread</code>函数。</p>
+</blockquote>
+<h3 id="_2">数组对象的属性<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><code>size</code>属性：获取数组元素个数。</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-36-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-36-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-36-3">3</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-36-4">4</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-36-5">5</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1"></a><span style="color: #000000">array17</span> <span style="color: #000000">=</span> <span style="color: #000000">np.arange</span>(<span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">100</span>, <span style="color: #1C01CE">2</span>)
+<a id="__codelineno-36-2" name="__codelineno-36-2"></a><span style="color: #000000">array18</span> <span style="color: #000000">=</span> <span style="color: #000000">np.random.rand</span>(<span style="color: #1C01CE">3</span>, <span style="color: #1C01CE">4</span>)
+<a id="__codelineno-36-3" name="__codelineno-36-3"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array16.size</span>)
+<a id="__codelineno-36-4" name="__codelineno-36-4"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array17.size</span>)
+<a id="__codelineno-36-5" name="__codelineno-36-5"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array18.size</span>)
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-37-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-37-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-37-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1"></a>1125000
+<a id="__codelineno-37-2" name="__codelineno-37-2"></a>50
+<a id="__codelineno-37-3" name="__codelineno-37-3"></a>12
+</code></pre></div></td></tr></table></div>
+<p><code>shape</code>属性：获取数组的形状。</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-38-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-38-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-38-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array16.shape</span>)
+<a id="__codelineno-38-2" name="__codelineno-38-2"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array17.shape</span>)
+<a id="__codelineno-38-3" name="__codelineno-38-3"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array18.shape</span>)
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-39-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-39-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-39-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1"></a>(750, 500, 3)
+<a id="__codelineno-39-2" name="__codelineno-39-2"></a>(50,)
+<a id="__codelineno-39-3" name="__codelineno-39-3"></a>(3, 4)
+</code></pre></div></td></tr></table></div>
+<p><code>dtype</code>属性：获取数组元素的数据类型。</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-40-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-40-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-40-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array16.dtype</span>)
+<a id="__codelineno-40-2" name="__codelineno-40-2"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array17.dtype</span>)
+<a id="__codelineno-40-3" name="__codelineno-40-3"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array18.dtype</span>)
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-41-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-41-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-41-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1"></a>uint8
+<a id="__codelineno-41-2" name="__codelineno-41-2"></a>int64
+<a id="__codelineno-41-3" name="__codelineno-41-3"></a>float64
+</code></pre></div></td></tr></table></div>
+<p><code>ndarray</code>对象元素的数据类型可以参考如下所示的表格。</p>
+<p><img src="res/dtype.jpg" style="zoom:50%;"></p>
+<p><code>ndim</code>属性：获取数组的维度。</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-42-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-42-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-42-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array16.ndim</span>)
+<a id="__codelineno-42-2" name="__codelineno-42-2"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array17.ndim</span>)
+<a id="__codelineno-42-3" name="__codelineno-42-3"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array18.ndim</span>)
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-43-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-43-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-43-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1"></a>3
+<a id="__codelineno-43-2" name="__codelineno-43-2"></a>1
+<a id="__codelineno-43-3" name="__codelineno-43-3"></a>2
+</code></pre></div></td></tr></table></div>
+<p><code>itemsize</code>属性：获取数组单个元素占用内存空间的字节数。</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-44-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-44-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-44-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array16.itemsize</span>)
+<a id="__codelineno-44-2" name="__codelineno-44-2"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array17.itemsize</span>)
+<a id="__codelineno-44-3" name="__codelineno-44-3"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array18.itemsize</span>)
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-45-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-45-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-45-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1"></a>1
+<a id="__codelineno-45-2" name="__codelineno-45-2"></a>8
+<a id="__codelineno-45-3" name="__codelineno-45-3"></a>8
+</code></pre></div></td></tr></table></div>
+<p><code>nbytes</code>属性：获取数组所有元素占用内存空间的字节数。</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-46-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-46-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-46-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array16.nbytes</span>)
+<a id="__codelineno-46-2" name="__codelineno-46-2"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array17.nbytes</span>)
+<a id="__codelineno-46-3" name="__codelineno-46-3"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array18.nbytes</span>)
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-47-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-47-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-47-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1"></a>1125000
+<a id="__codelineno-47-2" name="__codelineno-47-2"></a>400
+<a id="__codelineno-47-3" name="__codelineno-47-3"></a>96
+</code></pre></div></td></tr></table></div>
+<h3 id="_3">数组的索引运算<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>和 Python 中的列表类似，NumPy 的<code>ndarray</code>对象可以进行索引和切片操作，通过索引可以获取或修改数组中的元素，通过切片操作可以取出数组的一部分，我们把切片操作也称为切片索引。</p>
+<h4 id="_4">普通索引<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>类似于 Python 中<code>list</code>类型的索引运算。</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-48-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-48-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-48-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1"></a><span style="color: #000000">array19</span> <span style="color: #000000">=</span> <span style="color: #000000">np.arange</span>(<span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">10</span>)
+<a id="__codelineno-48-2" name="__codelineno-48-2"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array19</span>[<span style="color: #1C01CE">0</span>], <span style="color: #000000">array19</span>[<span style="color: #000000">array19.size</span> <span style="color: #000000">-</span> <span style="color: #1C01CE">1</span>])
+<a id="__codelineno-48-3" name="__codelineno-48-3"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array19</span>[<span style="color: #000000">-array20.size</span>], <span style="color: #000000">array19</span>[<span style="color: #000000">-</span><span style="color: #1C01CE">1</span>])
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-49-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-49-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1"></a>1 9
+<a id="__codelineno-49-2" name="__codelineno-49-2"></a>1 9
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-50-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-50-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1"></a><span style="color: #000000">array20</span> <span style="color: #000000">=</span> <span style="color: #000000">np.array</span>([[<span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">2</span>, <span style="color: #1C01CE">3</span>], [<span style="color: #1C01CE">4</span>, <span style="color: #1C01CE">5</span>, <span style="color: #1C01CE">6</span>], [<span style="color: #1C01CE">7</span>, <span style="color: #1C01CE">8</span>, <span style="color: #1C01CE">9</span>]])
+<a id="__codelineno-50-2" name="__codelineno-50-2"></a><span style="color: #000000">array20</span>[<span style="color: #1C01CE">2</span>]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-51-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1"></a>array([7, 8, 9])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-52-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-52-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array20</span>[<span style="color: #1C01CE">0</span>][<span style="color: #1C01CE">0</span>])
+<a id="__codelineno-52-2" name="__codelineno-52-2"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array20</span>[<span style="color: #000000">-</span><span style="color: #1C01CE">1</span>][<span style="color: #000000">-</span><span style="color: #1C01CE">1</span>])
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-53-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-53-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1"></a>1
+<a id="__codelineno-53-2" name="__codelineno-53-2"></a>9
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-54-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-54-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array20</span>[<span style="color: #1C01CE">1</span>][<span style="color: #1C01CE">1</span>])
+<a id="__codelineno-54-2" name="__codelineno-54-2"></a><span style="color: #A90D91">print</span>(<span style="color: #000000">array20</span>[<span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">1</span>])
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-55-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-55-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1"></a>5
+<a id="__codelineno-55-2" name="__codelineno-55-2"></a>5
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-56-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-56-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1"></a><span style="color: #000000">array20</span>[<span style="color: #1C01CE">1</span>][<span style="color: #1C01CE">1</span>] <span style="color: #000000">=</span> <span style="color: #1C01CE">10</span>
+<a id="__codelineno-56-2" name="__codelineno-56-2"></a><span style="color: #000000">array20</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-57-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-57-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-57-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1"></a>array([[ 1,  2,  3],
+<a id="__codelineno-57-2" name="__codelineno-57-2"></a>       [ 4, 10,  6],
+<a id="__codelineno-57-3" name="__codelineno-57-3"></a>       [ 7,  8,  9]])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-58-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-58-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1"></a><span style="color: #000000">array20</span>[<span style="color: #1C01CE">1</span>] <span style="color: #000000">=</span> [<span style="color: #1C01CE">10</span>, <span style="color: #1C01CE">11</span>, <span style="color: #1C01CE">12</span>]
+<a id="__codelineno-58-2" name="__codelineno-58-2"></a><span style="color: #000000">array20</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-59-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-59-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-59-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1"></a>array([[ 1,  2,  3],
+<a id="__codelineno-59-2" name="__codelineno-59-2"></a>       [10, 11, 12],
+<a id="__codelineno-59-3" name="__codelineno-59-3"></a>       [ 7,  8,  9]])
+</code></pre></div></td></tr></table></div>
+<h4 id="_5">切片索引<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>切片索引是形如<code>[开始索引:结束索引:跨度]</code>的语法，通过指定<strong>开始索引</strong>（默认值无穷小）、<strong>结束索引</strong>（默认值无穷大）和<strong>跨度</strong>（默认值1），从数组中取出指定部分的元素并构成新的数组。因为开始索引、结束索引和步长都有默认值，所以它们都可以省略，如果不指定步长，第二个冒号也可以省略。一维数组的切片运算跟 Python 中的<code>list</code>类型的切片非常类似，此处不再赘述，二维数组的切片可以参考下面的代码，相信非常容易理解。</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-60-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1"></a><span style="color: #000000">array20</span>[:<span style="color: #1C01CE">2</span>, <span style="color: #1C01CE">1</span>:]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-61-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-61-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1"></a>array([[ 2,  3],
+<a id="__codelineno-61-2" name="__codelineno-61-2"></a>       [11, 12]])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-62-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1"></a><span style="color: #000000">array20</span>[<span style="color: #1C01CE">2</span>, :]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-63-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1"></a>array([7, 8, 9])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-64-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1"></a><span style="color: #000000">array20</span>[<span style="color: #1C01CE">2</span>:, :]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-65-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1"></a>array([[7, 8, 9]])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-66-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1"></a><span style="color: #000000">array20</span>[:, :<span style="color: #1C01CE">2</span>]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-67-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-67-2">2</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-67-3">3</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1"></a>array([[ 1,  2],
+<a id="__codelineno-67-2" name="__codelineno-67-2"></a>       [10, 11],
+<a id="__codelineno-67-3" name="__codelineno-67-3"></a>       [ 7,  8]])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-68-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1"></a><span style="color: #000000">array20</span>[::<span style="color: #1C01CE">2</span>, ::<span style="color: #1C01CE">2</span>]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-69-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-69-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1"></a>array([[1, 3],
+<a id="__codelineno-69-2" name="__codelineno-69-2"></a>       [7, 9]])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-70-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1"></a><span style="color: #000000">array20</span>[::<span style="color: #000000">-</span><span style="color: #1C01CE">2</span>, ::<span style="color: #000000">-</span><span style="color: #1C01CE">2</span>]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-71-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-71-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-71-1" name="__codelineno-71-1"></a>array([[9, 7],
+<a id="__codelineno-71-2" name="__codelineno-71-2"></a>       [3, 1]])
+</code></pre></div></td></tr></table></div>
+<p>关于数组的索引和切片运算，大家可以通过下面的两张图来增强印象，这两张图来自<a href="https://item.jd.com/12398725.html">《利用Python进行数据分析》</a>一书，它是 pandas 库的作者 Wes McKinney 撰写的 Python 数据分析领域的经典教科书，有兴趣的读者可以购买和阅读原书。</p>
+<p>图1：二维数组的普通索引</p>
+<p><img src="res/ndarray-index.png" style="zoom:60%;"></p>
+<p>图2：二维数组的切片索引</p>
+<p><img src="res/ndarray-slice.png" style="zoom:60%;"></p>
+<h4 id="_6">花式索引<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>花式索引是用保存整数的数组充当一个数组的索引，这里所说的数组可以是 NumPy 的<code>ndarray</code>，也可以是 Python 中<code>list</code>、<code>tuple</code>等可迭代类型，可以使用正向或负向索引。</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-72-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-72-1" name="__codelineno-72-1"></a><span style="color: #000000">array19</span>[[<span style="color: #1C01CE">0</span>, <span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">1</span>, <span style="color: #000000">-</span><span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">4</span>, <span style="color: #000000">-</span><span style="color: #1C01CE">1</span>]]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-73-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-73-1" name="__codelineno-73-1"></a>array([1, 2, 2, 9, 5, 9])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-74-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-74-1" name="__codelineno-74-1"></a><span style="color: #000000">array20</span>[[<span style="color: #1C01CE">0</span>, <span style="color: #1C01CE">2</span>]]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-75-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-75-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-75-1" name="__codelineno-75-1"></a>array([[1, 2, 3],
+<a id="__codelineno-75-2" name="__codelineno-75-2"></a>       [7, 8, 9]])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-76-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-76-1" name="__codelineno-76-1"></a><span style="color: #000000">array20</span>[[<span style="color: #1C01CE">0</span>, <span style="color: #1C01CE">2</span>], [<span style="color: #1C01CE">1</span>, <span style="color: #1C01CE">2</span>]]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-77-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-77-1" name="__codelineno-77-1"></a>array([2, 9])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-78-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-78-1" name="__codelineno-78-1"></a><span style="color: #000000">array20</span>[[<span style="color: #1C01CE">0</span>, <span style="color: #1C01CE">2</span>], <span style="color: #1C01CE">1</span>]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-79-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-79-1" name="__codelineno-79-1"></a>array([2, 8])
+</code></pre></div></td></tr></table></div>
+<h4 id="_7">布尔索引<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>布尔索引就是通过保存布尔值的数组充当一个数组的索引，布尔值为<code>True</code>的元素保留，布尔值为<code>False</code>的元素不会被选中。布尔值的数组可以手动构造，也可以通过关系运算来产生。</p>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-80-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-80-1" name="__codelineno-80-1"></a><span style="color: #000000">array19</span>[[<span style="color: #A90D91">True</span>, <span style="color: #A90D91">True</span>, <span style="color: #A90D91">False</span>, <span style="color: #A90D91">False</span>, <span style="color: #A90D91">True</span>, <span style="color: #A90D91">False</span>, <span style="color: #A90D91">False</span>, <span style="color: #A90D91">True</span>, <span style="color: #A90D91">True</span>]]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-81-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-81-1" name="__codelineno-81-1"></a>array([1, 2, 5, 8, 9])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-82-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-82-1" name="__codelineno-82-1"></a><span style="color: #000000">array19</span> <span style="color: #000000">&gt;</span> <span style="color: #1C01CE">5</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-83-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-83-1" name="__codelineno-83-1"></a>array([False, False, False, False, False,  True,  True,  True,  True])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-84-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-84-1" name="__codelineno-84-1"></a><span style="color: #000000">~</span>(<span style="color: #000000">array19</span> <span style="color: #000000">&gt;</span> <span style="color: #1C01CE">5</span>)
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-85-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-85-1" name="__codelineno-85-1"></a>array([ True,  True,  True,  True,  True, False, False, False, False])
+</code></pre></div></td></tr></table></div>
+<blockquote>
+<p><strong>说明</strong>：<code>~</code>运算符可以对布尔数组中的布尔值进行逻辑取反，也就是原来的<code>True</code>会变成<code>False</code>，原来的<code>False</code>会变成<code>True</code>。</p>
+</blockquote>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-86-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-86-1" name="__codelineno-86-1"></a><span style="color: #000000">array19</span>[<span style="color: #000000">array20</span> <span style="color: #000000">&gt;</span> <span style="color: #1C01CE">5</span>]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-87-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-87-1" name="__codelineno-87-1"></a>array([6, 7, 8, 9])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-88-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-88-1" name="__codelineno-88-1"></a><span style="color: #000000">array19</span> <span style="color: #000000">%</span> <span style="color: #1C01CE">2</span> <span style="color: #000000">==</span> <span style="color: #1C01CE">0</span>
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-89-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-89-1" name="__codelineno-89-1"></a>array([False,  True, False,  True, False,  True, False,  True, False])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-90-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-90-1" name="__codelineno-90-1"></a><span style="color: #000000">array19</span>[<span style="color: #000000">array20</span> <span style="color: #000000">%</span> <span style="color: #1C01CE">2</span> <span style="color: #000000">==</span> <span style="color: #1C01CE">0</span>]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-91-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-91-1" name="__codelineno-91-1"></a>array([2, 4, 6, 8])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-92-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-92-1" name="__codelineno-92-1"></a>(<span style="color: #000000">array19</span> <span style="color: #000000">&gt;</span> <span style="color: #1C01CE">5</span>) <span style="color: #000000">&amp;</span> (<span style="color: #000000">array19</span> <span style="color: #000000">%</span> <span style="color: #1C01CE">2</span> <span style="color: #000000">==</span> <span style="color: #1C01CE">0</span>)
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-93-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-93-1" name="__codelineno-93-1"></a>array([False, False, False, False, False,  True, False,  True, False])
+</code></pre></div></td></tr></table></div>
+<blockquote>
+<p><strong>说明</strong>：<code>&amp;</code>运算符可以作用于两个布尔数组，如果两个数组对应元素都是<code>True</code>，那么运算的结果就是<code>True</code>，否则就是<code>False</code>，该运算符的运算规则类似于 Python 中的 <code>and</code> 运算符，只不过作用的对象是两个布尔数组。</p>
+</blockquote>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-94-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-94-1" name="__codelineno-94-1"></a><span style="color: #000000">array19</span>[(<span style="color: #000000">array19</span> <span style="color: #000000">&gt;</span> <span style="color: #1C01CE">5</span>) <span style="color: #000000">&amp;</span> (<span style="color: #000000">array19</span> <span style="color: #000000">%</span> <span style="color: #1C01CE">2</span> <span style="color: #000000">==</span> <span style="color: #1C01CE">0</span>)]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-95-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-95-1" name="__codelineno-95-1"></a>array([6, 8])
+</code></pre></div></td></tr></table></div>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-96-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-96-1" name="__codelineno-96-1"></a><span style="color: #000000">array19</span>[(<span style="color: #000000">array19</span> <span style="color: #000000">&gt;</span> <span style="color: #1C01CE">5</span>) <span style="color: #000000">|</span> (<span style="color: #000000">array19</span> <span style="color: #000000">%</span> <span style="color: #1C01CE">2</span> <span style="color: #000000">==</span> <span style="color: #1C01CE">0</span>)]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-97-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-97-1" name="__codelineno-97-1"></a>array([2, 4, 6, 7, 8, 9])
+</code></pre></div></td></tr></table></div>
+<blockquote>
+<p><strong>说明</strong>：<code>|</code>运算符可以作用于两个布尔数组，如果两个数组对应元素都是<code>False</code>，那么运算的结果就是<code>False</code>，否则就是<code>True</code>，该运算符的运算规则类似于 Python 中的 <code>or</code> 运算符，只不过作用的对象是两个布尔数组。</p>
+</blockquote>
+<p>代码：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-98-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-98-1" name="__codelineno-98-1"></a><span style="color: #000000">array20</span>[<span style="color: #000000">array21</span> <span style="color: #000000">%</span> <span style="color: #1C01CE">2</span> <span style="color: #000000">!=</span> <span style="color: #1C01CE">0</span>]
+</code></pre></div></td></tr></table></div>
+<p>输出：</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Text Only</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-99-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-99-1" name="__codelineno-99-1"></a>array([1, 3, 5, 7, 9])
+</code></pre></div></td></tr></table></div>
+<p>关于索引运算需要说明的是，切片索引虽然创建了新的数组对象，但是新数组和原数组共享了数组中的数据，简单的说，无论你通过新数组对象或原数组对象修改数组中的数据，修改的其实是内存中的同一块数据。花式索引和布尔索引也会创建新的数组对象，而且新数组复制了原数组的元素，新数组和原数组并不是共享数据的关系，这一点可以查看数组对象的<code>base</code>属性，有兴趣的读者可以自行探索。</p>
+<h3 id="_8">案例：通过数组切片处理图像<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>学习基础知识总是比较枯燥且没有成就感的，所以我们还是来个案例为大家演示下上面学习的数组索引和切片操作到底有什么用。前面我们说到过，可以用三维数组来表示图像，那么通过图像对应的三维数组进行操作，就可以实现对图像的处理，如下所示。</p>
+<p>读入图片创建三维数组对象。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-100-1">1</a></span>
+<span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-100-2">2</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-100-1" name="__codelineno-100-1"></a><span style="color: #000000">guido_image</span> <span style="color: #000000">=</span> <span style="color: #000000">plt.imread</span>(<span style="color: #C41A16">&#39;guido.jpg&#39;</span>)
+<a id="__codelineno-100-2" name="__codelineno-100-2"></a><span style="color: #000000">plt.imshow</span>(<span style="color: #000000">guido_image</span>)
+</code></pre></div></td></tr></table></div>
+<p><img src="res/guido_slice_1.png" style="zoom:65%;"></p>
+<p>对数组的0轴进行反向切片，实现图像的垂直翻转。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-101-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-101-1" name="__codelineno-101-1"></a><span style="color: #000000">plt.imshow</span>(<span style="color: #000000">guido_image</span>[::<span style="color: #000000">-</span><span style="color: #1C01CE">1</span>])
+</code></pre></div></td></tr></table></div>
+<p><img src="res/guido_slice_2.png" style="zoom:65%;"></p>
+<p>对数组的1轴进行反向切片，实现图像的水平翻转。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-102-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-102-1" name="__codelineno-102-1"></a><span style="color: #000000">plt.imshow</span>(<span style="color: #000000">guido_image</span>[:,::<span style="color: #000000">-</span><span style="color: #1C01CE">1</span>])
+</code></pre></div></td></tr></table></div>
+<p><img src="res/guido_slice_3.png" style="zoom:65%;"></p>
+<p>通过切片操作实现抠图，将吉多大叔的头抠出来。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-103-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-103-1" name="__codelineno-103-1"></a><span style="color: #000000">plt.imshow</span>(<span style="color: #000000">guido_image</span>[<span style="color: #1C01CE">30</span>:<span style="color: #1C01CE">350</span>, <span style="color: #1C01CE">90</span>:<span style="color: #1C01CE">300</span>])
+</code></pre></div></td></tr></table></div>
+<p><img src="res/guido_slice_4.png" style="zoom:65%;"></p>
+<p>通过切片操作实现降采样。</p>
+<div class="highlight" style="background: #ffffff"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span style="color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px;"><a href="#__codelineno-104-1">1</a></span></pre></div></td><td class="code"><div><pre style="line-height: 125%;"><span></span><code><a id="__codelineno-104-1" name="__codelineno-104-1"></a><span style="color: #000000">plt.imshow</span>(<span style="color: #000000">guido_image</span>[::<span style="color: #1C01CE">10</span>, ::<span style="color: #1C01CE">10</span>])
+</code></pre></div></td></tr></table></div>
+<p><img src="res/guido_slice_5.png" style="zoom:65%;"></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 5, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 5, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 OpenPowers
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/OpenPowers" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:<openpowers@outlook.com>" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480v-83.6c0-4 1.5-7.8 4.2-10.7l167.6-182.9c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8l-88.3-44.2C7.1 311.3.3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.expand", "navigation.tracking", "navigation.top", "search.highlight", {"tabs": false}, "search.suggest", "navigation.sections", "navigation.indexes", "header.autohide", "search.share", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      
+        <script src="../../javascripts/custom.js"></script>
+      
+    
+  </body>
+</html>
