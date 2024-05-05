@@ -1,10 +1,11 @@
 import os
 from natsort import natsorted
 
+
 def generate_nav(path):
     entries = {}
     # Define the directories to exclude
-    exclude_dirs = ['stylesheets', 'assets', '公开课', '番外篇']
+    exclude_dirs = ['stylesheets', 'assets', '公开课']
     for root, dirs, files in os.walk(path):
         # Exclude the directories in the blacklist
         if any(exclude_dir in root for exclude_dir in exclude_dirs):
@@ -36,6 +37,7 @@ def generate_nav(path):
         for title, file in files:
             nav += f"    - {title}: {file}\n"
     return nav
+
 
 # Replace 'your_project_path' with the path to your project
 nav_content = generate_nav('docs/')

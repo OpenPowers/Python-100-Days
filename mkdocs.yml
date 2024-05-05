@@ -146,8 +146,8 @@ extra_javascript:
   - javascripts/custom.js
 
 nav:
-  - index:
-    - index: index.md
+  - README:
+    - readme: index.md
   - Day01-15:
     - 01.初识Python: Day01-15/01.初识Python.md
     - 02.语言元素: Day01-15/02.语言元素.md
@@ -246,3 +246,20 @@ nav:
     - 98.项目部署上线和性能调优: Day91-100/98.项目部署上线和性能调优.md
     - 99.面试中的公共问题: Day91-100/99.面试中的公共问题.md
     - 100.Python面试题实录: Day91-100/100.Python面试题实录.md
+  - 番外篇:
+    - PEP8风格指南: 番外篇/PEP8风格指南.md
+    - Python之禅的最佳翻译: 番外篇/Python之禅的最佳翻译.md
+    - Python参考书籍: 番外篇/Python参考书籍.md
+    - Python容器使用小技巧: 番外篇/Python容器使用小技巧.md
+    - Python数据分析师面试题: 番外篇/Python数据分析师面试题.md
+    - Python编程惯例: 番外篇/Python编程惯例.md
+    - 一个小例子助你彻底理解协程: 番外篇/一个小例子助你彻底理解协程.md
+    - 使用Hexo搭建自己的博客: 番外篇/使用Hexo搭建自己的博客.md
+    - 常见反爬策略及应对方案: 番外篇/常见反爬策略及应对方案.md
+    - 我为什么选择了Python: 番外篇/我为什么选择了Python.md
+    - 接口文档参考示例: 番外篇/接口文档参考示例.md
+    - 玩转PyCharm: 番外篇/玩转PyCharm.md
+    - 用函数还是用复杂的表达式: 番外篇/用函数还是用复杂的表达式.md
+    - 知乎问题回答: 番外篇/知乎问题回答.md
+    - 英语面试: 番外篇/英语面试.md
+    - 那些年我们踩过的那些坑: 番外篇/那些年我们踩过的那些坑.md

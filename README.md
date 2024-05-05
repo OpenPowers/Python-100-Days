@@ -6,11 +6,11 @@
 >
 > 大家在学习过程中如果遇到一些棘手的问题或者需要相关的学习资源，可以加入下面的QQ交流群，三个群是一样的，加入一个即可，请不要重复加群，也不要在群里发布广告和其他色情、低俗或敏感内容。**如果缺乏自律性，有付费学习的需求，可以私聊我，添加我的企业微信，我会给大家提供一些学习方案和职业规划方面的指导**。
 >
-> <img src="res/python_study_qq_group.png" style="zoom:50%;">
+> <img src="docs/res/python_study_qq_group.png" style="zoom:50%;">
 >
 > 配套的视频在抖音和B站持续更新中，有兴趣的小伙伴可以关注我的抖音或B站账号，最近刚刚起号，还希望大家多多支持，非常感谢您！
 >
-> <img src="res/qrcode.JPG" style="zoom:18%;">
+> <img src="docs/res/qrcode.JPG" style="zoom:18%;">
 >
 > 大家一直催更的《机器学习和深度学习》因个人和公司的原因，一直处于停滞状态，近期会开始更新相关内容，感谢大家一如既往的支持和理解。
 
@@ -619,7 +619,7 @@ Python在以下领域都有用武之地。
      > - **客户合作** 高于 合同谈判
      > - **响应变化** 高于 遵循计划
 
-     ![](./res/agile-scrum-sprint-cycle.png)
+     ![](docs/res/agile-scrum-sprint-cycle.png)
 
      > 角色：产品所有者（决定做什么，能对需求拍板的人）、团队负责人（解决各种问题，专注如何更好的工作，屏蔽外部对开发团队的影响）、开发团队（项目执行人员，具体指开发人员和测试人员）。
 
@@ -635,11 +635,11 @@ Python在以下领域都有用武之地。
 
      > 说明：谢谢**付祥英**女士帮助我绘制了下面这张精美的公司组织架构图。
 
-     ![company_architecture](./res/company_architecture.png)
+     ![company_architecture](docs/res/company_architecture.png)
 
    - 编程规范和代码审查（`flake8`、`pylint`）
 
-     ![](./res/pylint.png)
+     ![](docs/res/pylint.png)
 
    - Python中的一些“惯例”（请参考[《Python惯例-如何编写Pythonic的代码》](Python惯例.md)）
 
@@ -673,7 +673,7 @@ Python在以下领域都有用武之地。
    - 模块划分：画思维导图（XMind），每个模块是一个枝节点，每个具体的功能是一个叶节点（用动词表述），需要确保每个叶节点无法再生出新节点，确定每个叶子节点的重要性、优先级和工作量。
    - 任务分配：由项目负责人根据上面的指标为每个团队成员分配任务。
 
-   ![](./res/requirements_by_xmind.png)
+   ![](docs/res/requirements_by_xmind.png)
 
 3. 制定项目进度表（每日更新）
 
@@ -688,7 +688,7 @@ Python在以下领域都有用武之地。
 
   - UML（统一建模语言）的类图
 
-    ![uml](./res/uml-class-diagram.png)
+    ![uml](docs/res/uml-class-diagram.png)
 
   - 通过模型创建表（正向工程），例如在Django项目中可以通过下面的命令创建二维表。
 
@@ -699,7 +699,7 @@ Python在以下领域都有用武之地。
 
   - 使用PowerDesigner绘制物理模型图。
 
-    ![](./res/power-designer-pdm.png)
+    ![](docs/res/power-designer-pdm.png)
 
   - 通过数据表创建模型（反向工程），例如在Django项目中可以通过下面的命令生成模型。
 
